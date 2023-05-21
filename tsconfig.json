@@ -28,7 +28,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "lint-staged.config.js"
+    "lint-staged.config.js",
+    "lintstagedrc.js"
   ],
   "exclude": ["node_modules"]
 }
