@@ -47,9 +47,8 @@
     "typescript": "^5.0.2"
   },
   "lint-staged": {
-    "**/*.(ts|tsx)": [
-      "yarn tsc --noEmit"
-    ]
+    "**/*.(ts|tsx)": "yarn tsc --noEmit",
+    "*.{js, jsx, ts, tsx}": "eslint --cache --fix"
   },
   "ct3aMetadata": {
     "initVersion": "7.13.0"
