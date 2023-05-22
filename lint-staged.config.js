@@ -1,12 +1,4 @@
 module.exports = {
   "*.{js,jsx,ts, tsx}": ["eslint --fix"],
-  "*.{ts,tsx}": [() => "tsc --noEmit"],
+  "*.{ts,tsx}": [() => "tsc --pretty --noEmit"],
 };
-
-// "lint-staged": {
-//   "*.{js, jsx, ts, tsx}": "eslint --cache --fix",
-//   "**/*.(ts|tsx)": [
-//     () => "tsc --skipLibCheck --noEmit",
-//   "eslint --cache --fix",
-//   ]
-// },
