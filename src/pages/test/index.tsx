@@ -1,6 +1,6 @@
 export default function Test() {
   const testValue: string | number = "testText";
-  const testArray: Array<string | number> = ["a", 1];
+  const testArray: Array<string | number> = ["a", 1, 3];
   console.log(testValue);
   return (
     <div>
