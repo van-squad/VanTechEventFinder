@@ -1,12 +1,10 @@
-import { type NextPage } from "next";
-import { SEO } from "~/components/SEO";
-import { Button, Text } from "@mantine/core";
 import Link from "next/link";
+import Button from "~/clients/components/Button";
+import Text from "~/clients/components/Text";
 
-const Home: NextPage = () => {
+const HomePage = () => {
   return (
     <>
-      <SEO title="Intro" />
       <main className="flex h-screen flex-col items-center justify-center">
         <Text fz="lg" fw={700} mb={10}>
           Tech Meetup Map 👋
@@ -24,4 +22,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default HomePage;
