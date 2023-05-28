@@ -8,8 +8,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "prepare": "husky install",
-    "typecheck": "tsc --pretty --noEmit"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
