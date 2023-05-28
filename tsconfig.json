@@ -19,7 +19,12 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     ".eslintrc.cjs",
@@ -28,8 +33,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "lint-staged.config.js",
-    "lintstagedrc.js"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
