@@ -9,7 +9,7 @@
     "lint": "next lint",
     "start": "next start",
     "prepare": "husky install",
-    "check": "tsc --noEmit"
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
