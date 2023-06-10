@@ -16,7 +16,12 @@ const config = {
   ],
   ignorePatterns: ["*.config.js"],
   parser: "@typescript-eslint/parser",
-  parserOptions: {},
+parserOptions: {
+        project: path.join(__dirname, "tsconfig.json"),
+      },
+    },
+  ],
+  ignorePatterns: ["*.config.js"],
   plugins: ["@typescript-eslint"],
   extends: ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   rules: {
