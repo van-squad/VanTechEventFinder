@@ -4,7 +4,7 @@ import Text from "~/clients/components/Text";
 
 const HomePage = () => {
   type Txt = string | number;
-  const txt: Txt = "aaaa";
+  const txt: Txt = 123;
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center">
