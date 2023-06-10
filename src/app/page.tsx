@@ -3,6 +3,8 @@ import Button from "~/clients/components/Button";
 import Text from "~/clients/components/Text";
 
 const HomePage = () => {
+  type Txt = string | number;
+  const txt: Txt = "aaaa";
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center">
@@ -17,6 +19,7 @@ const HomePage = () => {
         <Link href={`/map`}>
           <Button>Find Events</Button>
         </Link>
+        <Text>{txt}</Text>
       </main>
     </>
   );

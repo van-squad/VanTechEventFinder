@@ -14,6 +14,7 @@ const config = {
       },
     },
   ],
+  // ignorePatterns: ["*.config.js"],
   parser: "@typescript-eslint/parser",
   parserOptions: {},
   plugins: ["@typescript-eslint"],
