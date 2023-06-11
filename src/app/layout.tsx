@@ -2,6 +2,7 @@ import { type Metadata } from "next";
 import AuthProvider from "../clients/contexts/AuthProvider";
 import MantineProvider from "../clients/contexts/MantineProvider";
 import TrpcProvider from "~/clients/contexts/TrpcProvider";
+import ColorSchemeProvider from "~/clients/contexts/ColorSchemeProvider";
 import "~/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -21,7 +22,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <body>
         <TrpcProvider>
           <AuthProvider>
-            <MantineProvider>{children}</MantineProvider>
+            <ColorSchemeProvider>
+              <MantineProvider>{children}</MantineProvider>
+            </ColorSchemeProvider>
           </AuthProvider>
         </TrpcProvider>
       </body>

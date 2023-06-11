@@ -1,15 +1,22 @@
 "use client";
 
-import { MantineProvider as Mantine } from "@mantine/core";
+import {
+  MantineProvider as Mantine,
+  useMantineColorScheme,
+} from "@mantine/core";
 
 export interface MantineProviderProps {
   children: React.ReactNode;
 }
 
-const MantineProvider = ({ children }: MantineProviderProps) => (
-  <Mantine withGlobalStyles withNormalizeCSS>
-    {children}
-  </Mantine>
-);
+const MantineProvider = ({ children }: MantineProviderProps) => {
+  const { colorScheme } = useMantineColorScheme();
+
+  return (
+    <Mantine theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+      {children}
+    </Mantine>
+  );
+};
 
 export default MantineProvider;
