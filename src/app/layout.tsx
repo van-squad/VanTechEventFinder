@@ -1,8 +1,10 @@
 import { type Metadata } from "next";
 import AuthProvider from "../clients/contexts/AuthProvider";
-import MantineProvider from "../clients/contexts/MantineProvider";
 import TrpcProvider from "~/clients/contexts/TrpcProvider";
+import MantineProvider from "~/clients/contexts/MantineProvider";
+import Header from "~/clients/components/Header";
 import "~/styles/globals.css";
+import Footer from "~/clients/components/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -14,14 +16,18 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
         <TrpcProvider>
           <AuthProvider>
-            <MantineProvider>{children}</MantineProvider>
+            <MantineProvider>
+              <Header />
+              {children}
+              <Footer />
+            </MantineProvider>
           </AuthProvider>
         </TrpcProvider>
       </body>
