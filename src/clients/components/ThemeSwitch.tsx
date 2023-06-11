@@ -3,11 +3,16 @@ import {
   Group,
   useMantineColorScheme,
   useMantineTheme,
+  type ColorScheme,
 } from "@mantine/core";
 import { IconSun, IconMoonStars } from "@tabler/icons-react";
 
 const ThemeSwitch = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme() as {
+    colorScheme: ColorScheme;
+    toggleColorScheme: (colorScheme?: ColorScheme) => void;
+  };
+
   const theme = useMantineTheme();
 
   return (
