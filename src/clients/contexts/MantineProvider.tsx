@@ -14,13 +14,18 @@ const MantineProvider = ({ children }: MantineProviderProps) => {
   const { colorScheme } = useMantineColorScheme();
 
   return (
-    <Mantine theme={theme} withGlobalStyles withNormalizeCSS>
+    <Mantine
+      theme={{ ...theme, colorScheme: colorScheme }}
+      withGlobalStyles
+      withNormalizeCSS
+    >
       <Global
         styles={(theme) => ({
           body: {
             backgroundColor:
-              colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
-            color: colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+              theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
+            color:
+              theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
           },
         })}
       />

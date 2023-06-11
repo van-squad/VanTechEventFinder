@@ -26,6 +26,9 @@ const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
+    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
   },
 
   dropdown: {
