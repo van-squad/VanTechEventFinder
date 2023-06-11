@@ -16,12 +16,18 @@ const MantineProvider = ({ children }: MantineProviderProps) => {
     setColorScheme(value || (isDark ? "light" : "dark"));
 
   // Enale tailwind dark mode
-  const rootRef = useRef(document.documentElement);
   useEffect(() => {
+    const rootRef = document.documentElement;
+
     if (isDark) {
-      rootRef.current.classList.add("dark");
+      rootRef.classList.add("dark");
     } else {
-      rootRef.current.classList.remove("dark");
+      rootRef.classList.remove("dark");
+    }
+    if (isDark) {
+      rootRef.classList.add("dark");
+    } else {
+      rootRef.classList.remove("dark");
     }
   }, [isDark]);
   return (
