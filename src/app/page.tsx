@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Button from "~/clients/components/Button";
 import Text from "~/clients/components/Text";
+import ThemeButton from "~/clients/components/ThemeButton";
 
 const HomePage = () => {
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center">
+        <ThemeButton />
         <Text fz="lg" fw={700} mb={10}>
           Tech Meetup Map 👋
         </Text>
