@@ -1,10 +1,13 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   ColorSchemeProvider as MantineColorSchemeProvider,
   type ColorScheme,
   MantineProvider as Mantine,
+  useEmotionCache,
 } from "@mantine/core";
+import { CacheProvider } from "@emotion/react";
+import { useServerInsertedHTML } from "next/navigation";
 
 interface MantineProviderProps {
   children: React.ReactNode;
@@ -14,6 +17,18 @@ const MantineProvider = ({ children }: MantineProviderProps) => {
   const isDark = colorScheme === "dark";
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (isDark ? "light" : "dark"));
+
+  const cache = useEmotionCache();
+  cache.compat = true;
+
+  useServerInsertedHTML(() => (
+    <style
+      data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(" ")}`}
+      dangerouslySetInnerHTML={{
+        __html: Object.values(cache.inserted).join(" "),
+      }}
+    />
+  ));
 
   // Enale tailwind dark mode
   useEffect(() => {
@@ -31,14 +46,16 @@ const MantineProvider = ({ children }: MantineProviderProps) => {
     }
   }, [isDark]);
   return (
-    <MantineColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <Mantine theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-        {children}
-      </Mantine>
-    </MantineColorSchemeProvider>
+    <CacheProvider value={cache}>
+      <MantineColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <Mantine theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+          {children}
+        </Mantine>
+      </MantineColorSchemeProvider>
+    </CacheProvider>
   );
 };
 
