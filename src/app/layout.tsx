@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import AuthProvider from "../clients/contexts/AuthProvider";
 import TrpcProvider from "~/clients/contexts/TrpcProvider";
+import ColorSchemeProvider from "~/clients/contexts/ColorSchemeProvider";
 import MantineProvider from "~/clients/contexts/MantineProvider";
 import Header from "~/clients/components/Header";
 import "~/styles/globals.css";
@@ -23,11 +24,13 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <body>
         <TrpcProvider>
           <AuthProvider>
-            <MantineProvider>
-              <Header />
-              {children}
-              <Footer />
-            </MantineProvider>
+            <ColorSchemeProvider>
+              <MantineProvider>
+                <Header />
+                {children}
+                <Footer />
+              </MantineProvider>
+            </ColorSchemeProvider>
           </AuthProvider>
         </TrpcProvider>
       </body>
