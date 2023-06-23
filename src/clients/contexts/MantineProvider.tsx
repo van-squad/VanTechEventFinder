@@ -1,44 +1,36 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
 import {
-  ColorSchemeProvider as MantineColorSchemeProvider,
-  type ColorScheme,
+  Global,
   MantineProvider as Mantine,
+  useMantineColorScheme,
 } from "@mantine/core";
+import theme from "~/utils/theme";
 
 interface MantineProviderProps {
   children: React.ReactNode;
 }
+
 const MantineProvider = ({ children }: MantineProviderProps) => {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
-  const isDark = colorScheme === "dark";
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (isDark ? "light" : "dark"));
+  const { colorScheme } = useMantineColorScheme();
 
-  // Enale tailwind dark mode
-  useEffect(() => {
-    const rootRef = document.documentElement;
-
-    if (isDark) {
-      rootRef.classList.add("dark");
-    } else {
-      rootRef.classList.remove("dark");
-    }
-    if (isDark) {
-      rootRef.classList.add("dark");
-    } else {
-      rootRef.classList.remove("dark");
-    }
-  }, [isDark]);
   return (
-    <MantineColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
+    <Mantine
+      theme={{ ...theme, colorScheme: colorScheme }}
+      withGlobalStyles
+      withNormalizeCSS
     >
-      <Mantine theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-        {children}
-      </Mantine>
-    </MantineColorSchemeProvider>
+      <Global
+        styles={(theme) => ({
+          body: {
+            backgroundColor:
+              theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
+            color:
+              theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+          },
+        })}
+      />
+      {children}
+    </Mantine>
   );
 };
 
