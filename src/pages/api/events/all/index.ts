@@ -72,8 +72,6 @@ export default async function handler(
       // Get the day of 23:59:59
       const endOfDay = vancouverTime.clone().endOf("day");
       const endOfDayString = endOfDay.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
-
-      console.log(body.date, "body");
       const variables = {
         filter: {
           ...FILTER_CONSTANT,
