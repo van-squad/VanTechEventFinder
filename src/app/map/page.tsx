@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { type Metadata } from "next";
-import Button from "~/clients/components/Button";
-import Text from "~/clients/components/Text";
+import GoogleMap from "~/clients/components/GoogleMap";
 
 export const metadata: Metadata = {
   title: "Map",
@@ -9,16 +7,9 @@ export const metadata: Metadata = {
 };
 
 const MapPage = () => {
-  return (
-    <>
-      <Text fz="lg" fw={700} mb={20}>
-        Map Page
-      </Text>
-      <Link href={`/`}>
-        <Button variant="light">Back Home</Button>
-      </Link>
-    </>
-  );
+  const address = "3970 Carrigan court, Burnaby, BC";
+
+  return <GoogleMap address={address} />;
 };
 
 export default MapPage;
