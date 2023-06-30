@@ -2,6 +2,7 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { request } from "graphql-request";
 import { GET_EVENT_BY_ID } from "~/queries/get-event-by-id";
 import { type Result } from "./all";
+import convertDate from "~/utils/date-converter";
 const endpoint = process.env.EVENTS_ENDPOINT;
 
 interface Event {
@@ -34,6 +35,7 @@ export default async function handler(
         description: event.description,
         venue: event.venue,
         imageUrl: event.image.baseUrl,
+        dateTime: convertDate(event.dateTime),
       };
     }
 

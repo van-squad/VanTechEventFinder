@@ -2,6 +2,7 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { request } from "graphql-request";
 import moment from "moment-timezone";
 import { GET_EVENTS } from "~/queries/get-events";
+import convertDate from "~/utils/date-converter";
 
 const endpoint = process.env.EVENTS_ENDPOINT;
 
@@ -19,6 +20,7 @@ export interface Result {
   eventUrl: string;
   description: string;
   venue: Venue;
+  dateTime: Date;
   image: {
     baseUrl: string;
   };
@@ -42,7 +44,10 @@ interface Body {
   date: Date;
 }
 
-export type ModifiedResult = Omit<Result, "image"> & { imageUrl: string };
+export type ModifiedResult = Omit<Result, "dateTime" | "image"> & {
+  dateTime: string;
+  imageUrl: string;
+};
 
 const FILTER_CONSTANT = {
   query: "tech",
@@ -98,6 +103,7 @@ export default async function handler(
             description: edge.node.result.description,
             venue: edge.node.result.venue,
             imageUrl: edge.node.result.image.baseUrl,
+            dateTime: convertDate(edge.node.result.dateTime),
           });
         }
       }

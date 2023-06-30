@@ -5,6 +5,7 @@ export const GET_EVENT_BY_ID = `
       title
       description
       eventUrl
+      dateTime
       venue {
         id
         name

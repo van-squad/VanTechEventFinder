@@ -15,6 +15,7 @@ export const GET_EVENTS = `
               title
               eventUrl
               description
+              dateTime
               venue {
                 id
                 name
