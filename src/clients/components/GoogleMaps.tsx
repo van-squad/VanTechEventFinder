@@ -1,15 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import loader from "~/utils/googleMapsLoader";
 import { useMantineColorScheme } from "@mantine/core";
-import { mapTheme } from "~/utils/googleMapsTheme";
+import { mapTheme, loader } from "~/utils";
 
 interface GoogleMapProps {
   address: string;
 }
 
-const GoogleMaps = ({ address }: GoogleMapProps) => {
+export const GoogleMaps = ({ address }: GoogleMapProps) => {
   const [map, setMap] = useState<google.maps.Map>();
   const { colorScheme } = useMantineColorScheme();
 
@@ -46,4 +45,3 @@ const GoogleMaps = ({ address }: GoogleMapProps) => {
 
   return <div id="map" style={{ height: "100%", width: "100%" }}></div>;
 };
-export default GoogleMaps;
