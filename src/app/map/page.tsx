@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import GoogleMap from "~/clients/components/GoogleMap";
+import GoogleMaps from "~/clients/components/GoogleMaps";
 
 export const metadata: Metadata = {
   title: "Map",
@@ -7,9 +7,10 @@ export const metadata: Metadata = {
 };
 
 const MapPage = () => {
-  const address = "3970 Carrigan court, Burnaby, BC";
+  // [TODO] get current latitude and longitude from geolocation
+  const address = "601 W Cordova St, Vancouver, BC V6B 1G1";
 
-  return <GoogleMap address={address} />;
+  return <GoogleMaps address={address} />;
 };
 
 export default MapPage;

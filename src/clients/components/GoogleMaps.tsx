@@ -2,24 +2,27 @@
 
 import { useState, useEffect } from "react";
 import loader from "~/utils/googleMapsLoader";
+import { useMantineColorScheme } from "@mantine/core";
+import { mapTheme } from "~/utils/googleMapsTheme";
 
 interface GoogleMapProps {
   address: string;
 }
 
-const GoogleMap = ({ address }: GoogleMapProps) => {
+const GoogleMaps = ({ address }: GoogleMapProps) => {
   const [map, setMap] = useState<google.maps.Map>();
+  const { colorScheme } = useMantineColorScheme();
 
   useEffect(() => {
     const fetchMap = async () => {
       await loader.load().then(async () => {
         const geocoder = new window.google.maps.Geocoder();
         await geocoder.geocode({ address }, (results, status) => {
-          console.log(results, status);
           if (status === "OK" && results !== null) {
             const mapOptions = {
               center: results[0]?.geometry.location,
               zoom: 16,
+              styles: colorScheme == "dark" ? mapTheme.dark : mapTheme.light,
             };
 
             const newMap = new window.google.maps.Map(
@@ -39,8 +42,8 @@ const GoogleMap = ({ address }: GoogleMapProps) => {
     };
 
     void fetchMap();
-  }, [address]);
+  }, [address, colorScheme]);
 
   return <div id="map" style={{ height: "100%", width: "100%" }}></div>;
 };
-export default GoogleMap;
+export default GoogleMaps;
