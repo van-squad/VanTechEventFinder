@@ -49,7 +49,7 @@ const useStyles = createStyles((theme) => ({
 
 type ButtonVariant = (typeof BUTTON_VARIANTS)[keyof typeof BUTTON_VARIANTS];
 
-interface ButtonProps {
+interface ButtonProps extends MantineButtonProps {
   buttonType: ButtonVariant;
   children: React.ReactNode;
 }
