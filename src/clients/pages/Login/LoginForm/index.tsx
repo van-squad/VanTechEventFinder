@@ -32,6 +32,7 @@ const useStyles = createStyles((theme) => ({
   frame2: {
     width: "100%",
     display: "flex",
+    maxWidth: "35rem",
     flexDirection: "column",
     borderRadius: "2.5rem",
     border: `1px solid ${
@@ -54,11 +55,10 @@ const useStyles = createStyles((theme) => ({
     alignItems: "start",
     justifyContent: "center",
     margin: "3% auto",
-
     [theme.fn.smallerThan("sm")]: {
       maxWidth: "100%",
     },
-  }
+  },
 }));
 
 const LoginForm = () => {
@@ -93,12 +93,12 @@ const LoginForm = () => {
             />
             <Checkbox label="Keep me logged in" mt="xl" size="md" />
 
-            <Button buttonType="secondary">
+            <Button buttonType="secondary" style={{marginTop:"5%"}}>
               Login
             </Button>
 
             <Text mt="md">
-              Don&apos;t have an account?{" "}
+              Don&apos;t have an account? &nbsp;
               <Link
                 href="/signup"
                style={{ fontWeight: "700", color:"white"}}
@@ -109,6 +109,7 @@ const LoginForm = () => {
           </Paper>
         </div>
       </div>
+
     </>
   );
 };

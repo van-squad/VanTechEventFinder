@@ -14,11 +14,10 @@ import {
 } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-
   frame1: {
     height: "75vh",
     width: "50vw",
-    maxWidth: "700px",
+    maxWidth: "35rem",
     borderRadius: "2.5rem",
     position: "relative",
     border: `1px solid ${
@@ -30,6 +29,7 @@ const useStyles = createStyles((theme) => ({
   },
   frame2: {
     width: "100%",
+    maxWidth: "35rem",
     display: "flex",
     flexDirection: "column",
     borderRadius: "2.5rem",
