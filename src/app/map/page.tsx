@@ -15,7 +15,7 @@ const MapPage = () => {
         Map Page
       </Text>
       <Link href={`/`}>
-        <Button variant="light">Back Home</Button>
+        <Button buttonType="secondary">Back Home</Button>
       </Link>
     </>
   );
