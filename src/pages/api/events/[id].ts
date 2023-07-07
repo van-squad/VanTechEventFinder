@@ -3,7 +3,8 @@ import { request } from "graphql-request";
 import { GET_EVENT_BY_ID } from "~/queries/get-event-by-id";
 import { type Result } from "./all";
 import convertDate from "~/utils/date-converter";
-const endpoint = process.env.EVENTS_ENDPOINT;
+import { env } from "~/env.mjs";
+const endpoint = env.EVENTS_ENDPOINT;
 
 interface Event {
   event: Result | null;
@@ -23,7 +24,7 @@ export default async function handler(
       GET_EVENT_BY_ID,
       variables,
       {
-        Authorization: process.env.EVENTS_KEY,
+        Authorization: env.EVENTS_KEY,
       }
     );
     let result;

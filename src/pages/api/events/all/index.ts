@@ -3,8 +3,9 @@ import { request } from "graphql-request";
 import moment from "moment-timezone";
 import { GET_EVENTS } from "~/queries/get-events";
 import convertDate from "~/utils/date-converter";
+import { env } from "~/env.mjs";
 
-const endpoint = process.env.EVENTS_ENDPOINT;
+const endpoint = env.EVENTS_ENDPOINT;
 
 export interface Venue {
   id: string;
@@ -89,7 +90,7 @@ export default async function handler(
         GET_EVENTS,
         variables,
         {
-          Authorization: process.env.EVENTS_KEY,
+          Authorization: env.EVENTS_KEY ,
         }
       );
 
