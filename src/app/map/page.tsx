@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { type Metadata } from "next";
-import Button from "~/clients/components/Button";
-import Text from "~/clients/components/Text";
+import { GoogleMaps } from "~/clients/components";
 
 export const metadata: Metadata = {
   title: "Map",
@@ -9,16 +7,10 @@ export const metadata: Metadata = {
 };
 
 const MapPage = () => {
-  return (
-    <>
-      <Text fz="lg" fw={700} mb={20}>
-        Map Page
-      </Text>
-      <Link href={`/`}>
-        <Button buttonType="secondary">Back Home</Button>
-      </Link>
-    </>
-  );
+  // [TODO] get current latitude and longitude from geolocation
+  const address = "601 W Cordova St, Vancouver, BC V6B 1G1";
+
+  return <GoogleMaps address={address} />;
 };
 
 export default MapPage;
