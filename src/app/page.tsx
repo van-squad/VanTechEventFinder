@@ -119,7 +119,7 @@ const HomePage = () => {
                 events in Vancouver, and you can search for events by date.
               </Text>
               <Link href="/map">
-                <Button>Find Events</Button>
+                <Button buttonType="tertiary">Find Events</Button>
               </Link>
             </div>
           </div>
