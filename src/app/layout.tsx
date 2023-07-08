@@ -1,11 +1,12 @@
 import { type Metadata } from "next";
-import AuthProvider from "../clients/contexts/AuthProvider";
-import TrpcProvider from "~/clients/contexts/TrpcProvider";
+import Footer from "~/clients/components/Footer";
+import Header from "~/clients/components/Header";
+import MainWrapper from "~/clients/components/MainWrapper";
 import ColorSchemeProvider from "~/clients/contexts/ColorSchemeProvider";
 import MantineProvider from "~/clients/contexts/MantineProvider";
-import Header from "~/clients/components/Header";
+import TrpcProvider from "~/clients/contexts/TrpcProvider";
 import "~/styles/globals.css";
-import Footer from "~/clients/components/Footer";
+import AuthProvider from "../clients/contexts/AuthProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -27,7 +28,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
             <ColorSchemeProvider>
               <MantineProvider>
                 <Header />
-                {children}
+                <MainWrapper>{children}</MainWrapper>
                 <Footer />
               </MantineProvider>
             </ColorSchemeProvider>

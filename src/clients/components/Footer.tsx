@@ -1,12 +1,15 @@
 "use client";
+import { Container, Group, Text, createStyles, rem } from "@mantine/core";
 import Image from "next/image";
-import { createStyles, Container, Group, rem, Text } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   footer: {
     borderTop: `${rem(1)} solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
+    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
   },
 
   inner: {

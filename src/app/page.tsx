@@ -6,7 +6,7 @@ import Text from "~/clients/components/Text";
 const HomePage = () => {
   return (
     <>
-      <main className="relative flex h-screen flex-col items-center justify-center">
+      <main className="relative flex h-full flex-col items-center justify-center">
         <div className="absolute left-0 top-0 h-[11%] w-[12%] border-b border-l-0 border-r border-t-0 border-solid border-navy-400 dark:border-navy-100"></div>
         <div className="absolute bottom-0 right-0 h-[10%] w-[12%] border-b-0 border-l border-r-0 border-t border-solid border-navy-400 dark:border-navy-100"></div>
         <div className="relative box-border h-[59%] w-[66%] border border-solid border-navy-400 p-[25px] dark:border-navy-100">
@@ -31,7 +31,7 @@ const HomePage = () => {
                 events in Vancouver, and you can search for events by date.
               </Text>
               <Link href={`/map`}>
-                <Button>Find Events</Button>
+                <Button buttonType="tertiary">Find Events</Button>
               </Link>
             </div>
           </div>
