@@ -3,63 +3,15 @@ import Button from "~/clients/components/Button";
 import Link from "next/link";
 import {
   Paper,
-  createStyles,
   TextInput,
   PasswordInput,
   Checkbox,
   Title,
   Text,
-  rem,
 } from "@mantine/core";
 
-const useStyles = createStyles((theme) => ({
-  title: {
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
-  },
-  frame1: {
-    height: "75vh",
-    width: "50vw",
-    maxWidth: "35rem",
-    borderRadius: "2.5rem",
-    position: "relative",
-    border: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
-    }`,
-    [theme.fn.smallerThan("sm")]: {
-      width: "80vw",
-    },
-  },
-  frame2: {
-    width: "100%",
-    display: "flex",
-    maxWidth: "35rem",
-    flexDirection: "column",
-    borderRadius: "2.5rem",
-    border: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
-    }`,
-    position: "absolute",
-    top: "0.5rem",
-    right: "0.5rem",
-    height: "100%",
-    [theme.fn.smallerThan("sm")]: {
-      width: "80vw",
-    },
-  },
-  form: {
-    paddingTop: rem(80),
-    backgroundColor: "transparent",
-    width: "80%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "start",
-    justifyContent: "center",
-    margin: "3% auto",
-    [theme.fn.smallerThan("sm")]: {
-      maxWidth: "100%",
-    },
-  },
-}));
+import {useStyles} from "~/clients/pages/style";
+
 
 const LoginForm = () => {
   const { classes } = useStyles();
