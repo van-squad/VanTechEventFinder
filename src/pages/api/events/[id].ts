@@ -27,9 +27,8 @@ export default async function handler(
         Authorization: env.EVENTS_KEY,
       }
     );
-    let result;
     if (event) {
-      result = {
+      const result = {
         id: event.id,
         title: event.title,
         eventUrl: event.eventUrl,
@@ -38,9 +37,9 @@ export default async function handler(
         imageUrl: event.image.baseUrl,
         dateTime: convertDate(event.dateTime),
       };
+      return res.status(200).json(result);
     }
-
-    res.status(200).json(result);
+    res.status(404).json({ message: "no event found" });
   } catch (error) {
     res.status(400).json({ message: "fetch data failed", error });
   }

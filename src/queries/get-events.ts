@@ -10,27 +10,26 @@ export const GET_EVENTS = `
         node {
           id
           result {
-            ...ResultEvent
+            ... on Event {
+              id
+              title
+              eventUrl
+              description
+              dateTime
+              venue {
+                id
+                name
+                address
+                lat
+                lng
+              }
+              image {
+                baseUrl
+              }
+            }
           }
         }
       }
-    }
-  }
-  fragment ResultEvent on Event {
-    id
-    title
-    eventUrl
-    description
-    dateTime
-    venue {
-      id
-      name
-      address
-      lat
-      lng
-    }
-    image {
-      baseUrl
     }
   }
 `;
