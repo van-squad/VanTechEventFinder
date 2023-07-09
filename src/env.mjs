@@ -35,6 +35,9 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_GOOGLE_MAPS_KEY: z.string(),
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+    NEXT_PUBLIC_NETLIFY_URL: z.string(),
+    NEXT_PUBLIC_LOCALHOST: z.string(),
+    NEXT_PUBLIC_PORT: z.string(),
   },
 
   /**
@@ -48,6 +51,9 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+    NEXT_PUBLIC_NETLIFY_URL: process.env.NEXT_PUBLIC_NETLIFY_URL,
+    NEXT_PUBLIC_LOCALHOST: process.env.NEXT_PUBLIC_LOCALHOST,
+    NEXT_PUBLIC_PORT: process.env.NEXT_PUBLIC_PORT,
     EVENTS_ENDPOINT: process.env.EVENTS_ENDPOINT,
     EVENTS_KEY: process.env.EVENTS_KEY,
     NEXT_PUBLIC_GOOGLE_MAPS_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
