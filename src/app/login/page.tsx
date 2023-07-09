@@ -1,11 +1,14 @@
 import { type Metadata } from "next";
+import LoginForm from "~/clients/pages/Login/LoginForm";
 
 export const metadata: Metadata = {
-  title: "Login"
+  title: "Login",
 };
 
-const Login = () => {
-  return <div>Login</div>;
+const LogIn = () => {
+  return ( 
+  <LoginForm />
+  );
 };
 
-export default Login;
+export default LogIn;
