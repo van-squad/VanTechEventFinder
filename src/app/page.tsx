@@ -4,14 +4,9 @@ import Image from "next/image";
 import { Text } from "@mantine/core";
 import { Button } from "~/components";
 import { useStyles } from "./styles";
-import { trpc } from "~/providers";
 
 const HomePage = () => {
   const { classes } = useStyles();
-  const data = trpc.example.hello.useQuery({ text: "😎" });
-
-  console.log(data.data);
-
   return (
     <>
       <main className={classes.main}>

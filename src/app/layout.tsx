@@ -6,7 +6,6 @@ import {
   TrpcProvider,
   AuthProvider,
 } from "~/providers";
-import "~/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
