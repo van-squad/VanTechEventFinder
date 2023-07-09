@@ -2,7 +2,7 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { request } from "graphql-request";
 import moment from "moment-timezone";
 import { GET_EVENTS } from "~/queries/get-events";
-import convertDate from "~/utils/date-converter";
+import { convertDate } from "~/utils";
 import { env } from "~/env.mjs";
 
 const endpoint = env.EVENTS_ENDPOINT;
@@ -90,7 +90,7 @@ export default async function handler(
         GET_EVENTS,
         variables,
         {
-          Authorization: env.EVENTS_KEY ,
+          Authorization: env.EVENTS_KEY,
         }
       );
 

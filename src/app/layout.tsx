@@ -1,12 +1,12 @@
 import { type Metadata } from "next";
-import Footer from "~/clients/components/Footer";
-import Header from "~/clients/components/Header";
-import MainWrapper from "~/clients/components/MainWrapper";
-import ColorSchemeProvider from "~/clients/providers/ColorSchemeProvider";
-import MantineProvider from "~/clients/providers/MantineProvider";
-import TrpcProvider from "~/clients/providers/TrpcClient";
+import { Footer, Header, MainWrapper } from "~/app/components";
+import {
+  MantineProvider,
+  ColorSchemeProvider,
+  TrpcProvider,
+  AuthProvider,
+} from "~/providers";
 import "~/styles/globals.css";
-import AuthProvider from "../clients/providers/AuthProvider";
 
 export const metadata: Metadata = {
   title: {
