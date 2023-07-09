@@ -31,6 +31,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_GOOGLE_MAPS_KEY: z.string(),
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
     NEXT_PUBLIC_NETLIFY_URL: z.string(),
     NEXT_PUBLIC_LOCALHOST: z.string(),
@@ -51,5 +52,6 @@ export const env = createEnv({
     NEXT_PUBLIC_NETLIFY_URL: process.env.NEXT_PUBLIC_NETLIFY_URL,
     NEXT_PUBLIC_LOCALHOST: process.env.NEXT_PUBLIC_LOCALHOST,
     NEXT_PUBLIC_PORT: process.env.NEXT_PUBLIC_PORT,
+    NEXT_PUBLIC_GOOGLE_MAPS_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
   },
 });
