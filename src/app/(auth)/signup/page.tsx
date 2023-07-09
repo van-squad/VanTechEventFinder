@@ -7,10 +7,10 @@ import {
   PasswordInput,
   Text,
   Title,
-  Flex,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Button } from "~/components";
+import { Container, Frame } from "../components";
 import { useStyles } from "../style";
 
 const Signup = () => {
@@ -33,70 +33,62 @@ const Signup = () => {
   });
   const { classes } = useStyles();
   return (
-    <Flex
-      justify="center"
-      align="center"
-      mih="100%"
-      direction="column"
-      className={classes.container}
-    >
-      <div className={classes.frame1}>
-        <div className={classes.frame2}>
-          <Paper className={classes.form} radius={0} p={30}>
-            <Title
-              order={2}
-              className={classes.title}
-              ta="center"
-              mt="md"
-              mb={50}
-            >
-              Sign Up
-            </Title>
-            <Box maw={320} mx="auto" style={{ width: "100%" }}>
-              <form onSubmit={form.onSubmit((values) => console.log(values))}>
-                <TextInput
-                  label="User Name"
-                  placeholder="Name"
-                  {...form.getInputProps("userName")}
-                />
-                <TextInput
-                  mt="sm"
-                  label="Email"
-                  placeholder="Email"
-                  {...form.getInputProps("email")}
-                />
+    <Container>
+      <Frame>
+        <Paper className={classes.form} radius={0} p={30}>
+          <Title
+            order={2}
+            className={classes.title}
+            ta="center"
+            mt="md"
+            mb={50}
+          >
+            Sign Up
+          </Title>
+          <Box maw={320} mx="auto" style={{ width: "100%" }}>
+            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+              <TextInput
+                label="User Name"
+                placeholder="Name"
+                {...form.getInputProps("userName")}
+              />
+              <TextInput
+                mt="sm"
+                label="Email"
+                placeholder="Email"
+                {...form.getInputProps("email")}
+              />
 
-                <PasswordInput
-                  label="Password"
-                  placeholder="Password"
-                  {...form.getInputProps("password")}
-                />
+              <PasswordInput
+                label="Password"
+                placeholder="Password"
+                {...form.getInputProps("password")}
+              />
 
-                <PasswordInput
-                  mt="sm"
-                  label="Confirm password"
-                  placeholder="Confirm password"
-                  {...form.getInputProps("confirmPassword")}
-                />
-                <Button buttonType="primary" type="submit" mt="sm">
-                  Submit
-                </Button>
+              <PasswordInput
+                mt="sm"
+                label="Confirm password"
+                placeholder="Confirm password"
+                {...form.getInputProps("confirmPassword")}
+              />
+              <Button buttonType="primary" type="submit" mt="sm">
+                Submit
+              </Button>
 
-                <Text mt="md">
-                  Already have an account?{" "}
-                  <Link
-                    href="/login"
-                    style={{ fontWeight: "700", color: "white" }}
-                  >
-                    Log In
-                  </Link>
-                </Text>
-              </form>
-            </Box>
-          </Paper>
-        </div>
-      </div>
-    </Flex>
+              <Text mt="md">
+                Already have an account?{" "}
+                <Link
+                  href="/login"
+                  style={{ fontWeight: "700", color: "white" }}
+                >
+                  Log In
+                </Link>
+              </Text>
+            </form>
+          </Box>
+        </Paper>
+      </Frame>
+    </Container>
   );
 };
 
