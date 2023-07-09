@@ -30,5 +30,6 @@ export const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("sm")]: {
       width: "80vw",
     },
+    zIndex: -1,
   },
 }));

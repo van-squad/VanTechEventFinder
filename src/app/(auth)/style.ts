@@ -19,4 +19,8 @@ export const useStyles = createStyles((theme) => ({
       maxWidth: "100%",
     },
   },
+  link: {
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    fontWeight: 700,
+  },
 }));

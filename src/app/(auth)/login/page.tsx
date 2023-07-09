@@ -51,7 +51,7 @@ const LogIn = () => {
 
           <Text mt="md">
             Don&apos;t have an account? &nbsp;
-            <Link href="/signup" style={{ fontWeight: "700", color: "white" }}>
+            <Link href="/signup" className={classes.link}>
               Sign Up
             </Link>
           </Text>

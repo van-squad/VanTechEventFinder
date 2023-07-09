@@ -77,10 +77,7 @@ const Signup = () => {
 
               <Text mt="md">
                 Already have an account?{" "}
-                <Link
-                  href="/login"
-                  style={{ fontWeight: "700", color: "white" }}
-                >
+                <Link href="/login" className={classes.link}>
                   Log In
                 </Link>
               </Text>
