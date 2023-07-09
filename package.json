@@ -25,11 +25,13 @@
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
+    "graphql-request": "^6.1.0",
+    "moment-timezone": "^0.5.43",
     "next": "^13.4.1",
     "next-auth": "^4.21.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "superjson": "^1.12.2",
+    "superjson": "^1.12.4",
     "zod": "^3.21.4"
   },
   "devDependencies": {

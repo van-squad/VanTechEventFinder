@@ -23,6 +23,8 @@ export const env = createEnv({
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
+    EVENTS_ENDPOINT: z.string(),
+    EVENTS_KEY: z.string(),
   },
 
   /**
@@ -52,6 +54,8 @@ export const env = createEnv({
     NEXT_PUBLIC_NETLIFY_URL: process.env.NEXT_PUBLIC_NETLIFY_URL,
     NEXT_PUBLIC_LOCALHOST: process.env.NEXT_PUBLIC_LOCALHOST,
     NEXT_PUBLIC_PORT: process.env.NEXT_PUBLIC_PORT,
+    EVENTS_ENDPOINT: process.env.EVENTS_ENDPOINT,
+    EVENTS_KEY: process.env.EVENTS_KEY,
     NEXT_PUBLIC_GOOGLE_MAPS_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
   },
 });
