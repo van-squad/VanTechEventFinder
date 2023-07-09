@@ -43,5 +43,5 @@ export const GoogleMaps = ({ address }: GoogleMapProps) => {
     void fetchMap();
   }, [address, colorScheme]);
 
-  return <div id="map" style={{ height: "100%", width: "100%" }}></div>;
+  return <div id="map" style={{ height: "100vh", width: "100%" }}></div>;
 };
