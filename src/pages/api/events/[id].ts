@@ -2,7 +2,7 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { request } from "graphql-request";
 import { GET_EVENT_BY_ID } from "~/queries/get-event-by-id";
 import { type Result } from "./all";
-import convertDate from "~/utils/date-converter";
+import { convertDate } from "~/utils";
 import { env } from "~/env.mjs";
 const endpoint = env.EVENTS_ENDPOINT;
 

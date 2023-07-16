@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import { GoogleMaps } from "~/clients/components";
+import { GoogleMaps } from "./components";
 
 export const metadata: Metadata = {
   title: "Map",

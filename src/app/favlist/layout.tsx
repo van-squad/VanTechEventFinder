@@ -1,9 +1,11 @@
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Favourites",
+};
+
 const FavListLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex flex-col items-center justify-center">
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 };
 
 export default FavListLayout;
