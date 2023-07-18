@@ -1,6 +1,8 @@
 "use client";
 import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
+import Link from "next/link";
+import Image from "next/image";
 
 type CardProps = {
   title: string;
@@ -33,9 +35,11 @@ export const Card: React.FC<CardProps> = ({
             </Text>
           </div>
 
-          <img
+          <Image
             src={imageUrl}
             alt={`image of ${title}`}
+            width = {500}
+            height={500}
             style={{
               width: "100%",
               height: "50%",
@@ -53,13 +57,13 @@ export const Card: React.FC<CardProps> = ({
           <Text fz="xs">{description}</Text>
 
           <Text>
-            <a
+            <Link
               style={{ fontWeight: 700 }}
               className={classes.root}
               href={website}
             >
               Website
-            </a>
+            </Link>
           </Text>
         </div>
       </div>

@@ -7,33 +7,33 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "550px",
+    height: "34rem",
     width: "80vw",
-    maxWidth: "700px",
-    minWidth: "250px",
+    maxWidth: "43rem",
+    minWidth: "15rem",
     border: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
     }`,
 
-    borderRadius: "40px",
+    borderRadius: "2.5rem",
     position: "relative",
     marginBottom: "3%",
     [theme.fn.largerThan("sm")]: {
-      height: "250px",
+      height: "15rem",
       width: "80vw",
     },
   },
   favCardLayout: {
     display: "flex",
     flexDirection: "column",
-    borderRadius: "40px",
+    borderRadius: "2.5rem",
     backgroundColor: "rgba(255, 255, 255,0.1)",
     border: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
     }`,
     position: "absolute",
-    top: "2px",
-    right: "9px",
+    top: "0.3rem",
+    right: "0.5rem",
     height: "100%",
     [theme.fn.largerThan("sm")]: {
       flexDirection: "row",
