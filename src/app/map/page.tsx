@@ -7,9 +7,6 @@ export const metadata: Metadata = {
 };
 
 const MapPage = () => {
-  // [TODO] get current latitude and longitude from geolocation
-  // const address = "601 W Cordova St, Vancouver, BC V6B 1G1";
-
   return <GoogleMaps />;
 };
 
