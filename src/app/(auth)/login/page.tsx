@@ -8,8 +8,8 @@ import {
   Title,
   Text,
 } from "@mantine/core";
-
-import { Button } from "~/components";
+import {BUTTON_VARIANTS} from "~/components/Button";
+import { Button  } from "~/components";
 import { Container, Frame } from "../components";
 
 import { useStyles } from "../style";
@@ -45,7 +45,7 @@ const LogIn = () => {
           />
           <Checkbox label="Keep me logged in" mt="xl" size="md" />
 
-          <Button buttonType="secondary" style={{ marginTop: "5%" }}>
+          <Button buttonType= {BUTTON_VARIANTS.SECONDARY} style={{ marginTop: "5%" }}>
             Login
           </Button>
 
