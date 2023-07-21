@@ -9,6 +9,7 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import {BUTTON_VARIANTS} from "~/components/Button";
 import { Button } from "~/components";
 import { Container, Frame } from "../components";
 import { useStyles } from "../style";
@@ -71,7 +72,7 @@ const Signup = () => {
                 placeholder="Confirm password"
                 {...form.getInputProps("confirmPassword")}
               />
-              <Button buttonType="primary" type="submit" mt="sm">
+              <Button buttonType={BUTTON_VARIANTS.PRIMARY} type="submit" mt="sm">
                 Submit
               </Button>
 
