@@ -8,7 +8,8 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prebuild:": "npx prisma migrate dev"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -25,6 +26,7 @@
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
+    "bcryptjs": "^2.4.3",
     "graphql-request": "^6.1.0",
     "moment-timezone": "^0.5.43",
     "next": "^13.4.1",
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "@tabler/icons-react": "^2.22.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/eslint": "^8.21.3",
     "@types/google.maps": "^3.53.4",
     "@types/node": "^18.15.5",

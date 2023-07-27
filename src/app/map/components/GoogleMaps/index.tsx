@@ -24,7 +24,7 @@ export const GoogleMaps = () => {
               document.getElementById("map") as HTMLElement,
               mapOptions
             );
-            
+
             new window.google.maps.Marker({
               position: { lat: latitude, lng: longitude },
               map: newMap,

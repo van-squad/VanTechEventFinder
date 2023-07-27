@@ -13,7 +13,10 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ThemeSwitch } from "../../components";
+import { Button } from "~/components";
+import { BUTTON_VARIANTS } from "~/components/Button";
 import { useStyles, HEADER_HEIGHT } from "./styles";
+import { signOut } from "next-auth/react";
 
 const LINKS = [
   { link: "/", label: "Home" },
@@ -47,6 +50,14 @@ const Header = () => {
         <Group spacing={5} className={classes.links}>
           {items}
           <ThemeSwitch />
+          {/* Temporal Button for logout */}
+          <Button
+            buttonType={BUTTON_VARIANTS.TERTIARY}
+            mt="sm"
+            onClick={() => void signOut()}
+          >
+            Logout
+          </Button>
         </Group>
 
         <Burger
@@ -61,6 +72,14 @@ const Header = () => {
             <Paper className={classes.dropdown} withBorder style={styles}>
               {items}
               <ThemeSwitch />
+              {/* Temporal Button for logout */}
+              <Button
+                buttonType={BUTTON_VARIANTS.TERTIARY}
+                mt="sm"
+                onClick={() => void signOut()}
+              >
+                Logout
+              </Button>
             </Paper>
           )}
         </Transition>
