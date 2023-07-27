@@ -5,7 +5,7 @@ import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 
 export const GoogleMaps = () => {
-  const [map, setMap] = useState<google.maps.Map>();
+  const [, setMap] = useState<google.maps.Map>();
   const { colorScheme } = useMantineColorScheme();
 
   useEffect(() => {
