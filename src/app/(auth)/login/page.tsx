@@ -25,6 +25,7 @@ const LogIn = () => {
     initialValues: {
       email: "",
       password: "",
+      rememberPassword: false,
     },
 
     // functions will be used to validate values at corresponding key
@@ -35,16 +36,37 @@ const LogIn = () => {
     },
   });
 
-  const handleSubmit = async (values: { email: string; password: string }) => {
+  const handleSubmit = async (values: {
+    email: string;
+    password: string;
+    rememberPassword: boolean;
+  }) => {
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email: values.email,
-        password: values.password,
-      });
+      const result = await signIn(
+        "credentials",
+        {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+          rememberPassword: values.rememberPassword,
+        },
+        { rememberPassword: values.rememberPassword ? "true" : "false" }
+      );
+
       if (!result?.error) {
+        // Retry: It's gross but here is what it is 🤷‍♀️ 🤷‍♀️ 🤷‍♀️
+        if (!session) {
+          await signIn(
+            "credentials",
+            {
+              redirect: false,
+              email: values.email,
+              password: values.password,
+            },
+            { rememberPassword: values.rememberPassword ? "true" : "false" }
+          );
+        }
         form.reset();
-        // router.push("/");
       }
       if (result?.error) {
         form.reset();
@@ -88,7 +110,12 @@ const LogIn = () => {
               style={{ width: "100%" }}
               {...form.getInputProps("password")}
             />
-            <Checkbox label="Keep me logged in" mt="xl" size="md" />
+            <Checkbox
+              label="Keep me logged in"
+              mt="xl"
+              size="md"
+              {...form.getInputProps("rememberPassword")}
+            />
 
             <Button
               buttonType={BUTTON_VARIANTS.SECONDARY}
