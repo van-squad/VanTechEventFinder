@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -74,7 +73,7 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
       path: "/",
     });
   }
-
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return await NextAuth(req, res, nextAuthOptions);
 }
 
