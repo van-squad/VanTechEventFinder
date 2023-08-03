@@ -17,7 +17,7 @@ import { useStyles, HEADER_HEIGHT } from "./styles";
 import { BUTTON_VARIANTS } from "~/components/Button";
 import { Button } from "~/components";
 
-const loggedIn = false; 
+const loggedIn = true; 
 
 const LINKS = [
   { link: "/map", label: "Map", buttonType: BUTTON_VARIANTS.PRIMARY },
@@ -65,9 +65,6 @@ const Header = () => {
       <Link
         key={link.label}
         href={link.link}
-        className={cx(classes.link, {
-          [classes.linkActive]: activePathname === link.link,
-        })}
       >
         <Button buttonType={link.buttonType} style={{ marginTop: "5%" }}>
           {link.label}{" "}
