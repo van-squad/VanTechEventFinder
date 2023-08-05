@@ -20,17 +20,15 @@ import { Button } from "~/components";
 const loggedIn = true; 
 
 const LINKS = [
-  { link: "/map", label: "Map", buttonType: BUTTON_VARIANTS.PRIMARY },
+  { link: "/map", label: "Map" },
   loggedIn
     ? {
         link: "/favlist",
         label: "Fav Events",
-        buttonType: BUTTON_VARIANTS.SECONDARY,
       }
     : {
         link: "/login",
         label: "Login",
-        buttonType: BUTTON_VARIANTS.SECONDARY,
       },
   loggedIn
     ? {
@@ -41,8 +39,7 @@ const LINKS = [
     : {
         link: "/signup",
         label: "Sign Up",
-        buttonType: BUTTON_VARIANTS.TERTIARY,
-      },
+      }
 ];
 
 const Header = () => {
@@ -51,10 +48,11 @@ const Header = () => {
   const { classes, cx } = useStyles();
 
   const items = LINKS.map((link) =>
-    link.label === "Log Out" ? (
+    link.label === "Log Out" && link.buttonType ? (
       <Button
         key={link.label}
         buttonType={link.buttonType}
+        style={{ margin: "1rem" }}
       >
         {link.label}
       </Button>
