@@ -51,7 +51,14 @@ const Header = () => {
   const { classes, cx } = useStyles();
 
   const items = LINKS.map((link) =>
-    opened ? (
+    link.label === "Log Out" ? (
+      <Button
+        key={link.label}
+        buttonType={link.buttonType}
+      >
+        {link.label}
+      </Button>
+    ) : (
       <Link
         key={link.label}
         href={link.link}
@@ -60,15 +67,6 @@ const Header = () => {
         })}
       >
         {link.label}
-      </Link>
-    ) : (
-      <Link
-        key={link.label}
-        href={link.link}
-      >
-        <Button buttonType={link.buttonType} style={{ marginTop: "5%" }}>
-          {link.label}{" "}
-        </Button>
       </Link>
     )
   );
@@ -81,12 +79,10 @@ const Header = () => {
         </Link>
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          <ThemeSwitch />
-
           <Group spacing={5} className={classes.links}>
             {items}
           </Group>
-
+          <ThemeSwitch />
           <Burger
             opened={opened}
             onClick={toggle}
@@ -97,7 +93,11 @@ const Header = () => {
 
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
-            <Paper className={classes.dropdown} withBorder style={styles}>
+            <Paper
+              className={classes.dropdown}
+              style={styles}
+              onClick={toggle}
+            >
               {items}
             </Paper>
           )}
