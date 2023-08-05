@@ -53,5 +53,5 @@ export const GoogleMaps = () => {
     void fetchMap();
   }, [colorScheme]);
 
-  return <div id="map" style={{ height: "100vh", width: "100%" }}></div>;
+  return <div id="map" style={{ height: "calc(100vh - 9.5rem)", width: "100%" }}></div>;
 };
