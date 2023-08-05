@@ -1,5 +1,5 @@
 import { createStyles, rem } from "@mantine/core";
-export const HEADER_HEIGHT = "4.75rem";
+export const HEADER_HEIGHT = rem(70);
 
 export const useStyles = createStyles((theme) => ({
   root: {
