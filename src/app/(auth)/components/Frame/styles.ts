@@ -29,7 +29,6 @@ export const useStyles = createStyles((theme) => ({
     height: "100%",
     [theme.fn.smallerThan("sm")]: {
       width: "80vw",
-    },
-    zIndex: -1,
+    }
   },
 }));
