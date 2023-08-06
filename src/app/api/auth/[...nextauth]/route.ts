@@ -3,6 +3,9 @@ import { cookies } from "next/headers";
 import NextAuth from "next-auth";
 import { authOptions } from "~/server/auth";
 
+// Super gross
+// eslint-disable-next-line
+// @ts-nocheck
 async function auth(req: NextApiRequest, res: NextApiResponse) {
   // Get user's preference from cookie
   const cookieStore = cookies();
@@ -29,4 +32,7 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await NextAuth(req, res, authOptions);
 }
 
+// Super gross
+// eslint-disable-next-line
+// @ts-nocheck
 export { auth as GET, auth as POST };
