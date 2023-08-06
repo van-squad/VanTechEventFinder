@@ -3,7 +3,7 @@ import type * as trpc from "@trpc/server";
 import type * as trpcNext from "@trpc/server/adapters/next";
 import { getServerSession } from "next-auth";
 import type { getUser, User } from "~/server-rsc/getUser";
-import { nextAuthOptions } from "~/app/api/auth/[...nextauth]/route";
+import { authOptions } from "~/server/auth";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface CreateContextOptions {
@@ -43,7 +43,7 @@ export async function createContext(
     };
   }
   // not RSC
-  const session = await getServerSession(opts.req, opts.res, nextAuthOptions);
+  const session = await getServerSession(opts.req, opts.res, authOptions);
   return {
     type: opts.type,
     user: session?.user,
