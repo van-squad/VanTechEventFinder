@@ -14,12 +14,12 @@ async function auth(req: NextApiRequest, res: NextApiResponse) {
   const params = new URLSearchParams(url.search);
   const rememberPassword = params.get("rememberPassword");
 
-  if (rememberMe) {
-    authOptions.session!.maxAge =
+  if (rememberMe && authOptions.session) {
+    authOptions.session.maxAge =
       rememberMe.value === "true" ? 30 * 24 * 60 * 60 : 15 * 60;
   }
-  if (rememberPassword) {
-    authOptions.session!.maxAge =
+  if (rememberPassword && authOptions.session) {
+    authOptions.session.maxAge =
       rememberPassword === "true" ? 30 * 24 * 60 * 60 : 15 * 60;
     cookieStore.set("remember-me", rememberPassword, {
       path: "/",
