@@ -3,10 +3,14 @@
 import { useState, useEffect } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
+import Calendar from "../Calendar";
+import { useStyles } from "./styles";
 
 export const GoogleMaps = () => {
   const [map, setMap] = useState<google.maps.Map>();
+  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const { colorScheme } = useMantineColorScheme();
+  const { classes } = useStyles();
 
   useEffect(() => {
     const fetchMap = async () => {
@@ -24,7 +28,7 @@ export const GoogleMaps = () => {
               document.getElementById("map") as HTMLElement,
               mapOptions
             );
-            
+
             new window.google.maps.Marker({
               position: { lat: latitude, lng: longitude },
               map: newMap,
@@ -53,5 +57,12 @@ export const GoogleMaps = () => {
     void fetchMap();
   }, [colorScheme]);
 
-  return <div id="map" style={{ height: "100vh", width: "100%" }}></div>;
+  return (
+    <div className={classes.wrapper}>
+      <div id="map" className={classes.googleMap}></div>
+      <div className={classes.container}>
+        <Calendar date={date} setDate={setDate} />
+      </div>
+    </div>
+  );
 };
