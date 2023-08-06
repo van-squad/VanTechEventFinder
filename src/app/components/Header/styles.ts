@@ -7,7 +7,7 @@ export const useStyles = createStyles((theme) => ({
     zIndex: 1,
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
-    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+    borderBottom: "none",
   },
 
   dropdown: {
@@ -20,7 +20,8 @@ export const useStyles = createStyles((theme) => ({
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
     overflow: "hidden",
-
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
     [theme.fn.largerThan("sm")]: {
       display: "none",
     },
@@ -48,21 +49,17 @@ export const useStyles = createStyles((theme) => ({
   link: {
     display: "block",
     lineHeight: 1,
-    padding: `${rem(8)} ${rem(12)}`,
-    borderRadius: theme.radius.sm,
+    margin: `${rem(8)} ${rem(15)}`,
     textDecoration: "none",
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.dark[0]
-        : theme.colors.gray[7],
+        ? theme.colors.blue[0]
+        : theme.colors.dark[9],
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
     "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[6]
-          : theme.colors.gray[0],
+      textDecoration: "underline",
     },
 
     [theme.fn.smallerThan("sm")]: {
@@ -72,13 +69,6 @@ export const useStyles = createStyles((theme) => ({
   },
 
   linkActive: {
-    "&, &:hover": {
-      backgroundColor: theme.fn.variant({
-        variant: "light",
-        color: theme.primaryColor,
-      }).background,
-      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-        .color,
-    },
+    textDecoration: "underline",
   },
 }));
