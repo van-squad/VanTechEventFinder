@@ -1,18 +1,18 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// Super gross
+// eslint-disable-next-line
 // @ts-nocheck
-import type { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
 import NextAuth from "next-auth";
 import { authOptions } from "~/server/auth";
 
-async function auth(req: NextApiRequest, res: NextApiResponse) {
+async function auth(req, res) {
   // Get user's preference from cookie
   const cookieStore = cookies();
   const rememberMe = cookieStore.get("remember-me");
 
   // Get user's preference from form
   const urlString = req.url;
-  const url = new URL(urlString as string);
+  const url = new URL(urlString);
   const params = new URLSearchParams(url.search);
   const rememberPassword = params.get("rememberPassword");
 
