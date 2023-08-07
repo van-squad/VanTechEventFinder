@@ -1,11 +1,12 @@
-// Super gross
-// eslint-disable-next-line
-// @ts-nocheck
+import type { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
 import NextAuth from "next-auth";
 import { authOptions } from "~/server/auth";
 
-async function auth(req, res) {
+type CombineRequest = Request & NextApiRequest;
+type CombineResponse = Response & NextApiResponse;
+
+async function auth(req: CombineRequest, res: CombineResponse) {
   // Get user's preference from cookie
   const cookieStore = cookies();
   const rememberMe = cookieStore.get("remember-me");
