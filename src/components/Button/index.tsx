@@ -15,6 +15,7 @@ type ButtonVariant = (typeof BUTTON_VARIANTS)[keyof typeof BUTTON_VARIANTS];
 
 interface ButtonProps extends MantineButtonProps {
   buttonType: ButtonVariant;
+  onClick?: () => void;
   children: React.ReactNode;
 }
 

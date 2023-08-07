@@ -24,11 +24,13 @@ export const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
     }`,
     position: "absolute",
+    // Temporal fix to test login so that user can input
+    zIndex: -1,
     top: "8px",
     right: "9px",
     height: "100%",
     [theme.fn.smallerThan("sm")]: {
       width: "80vw",
-    }
+    },
   },
 }));

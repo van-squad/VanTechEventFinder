@@ -7,7 +7,7 @@ import Calendar from "../Calendar";
 import { useStyles } from "./styles";
 
 export const GoogleMaps = () => {
-  const [map, setMap] = useState<google.maps.Map>();
+  const [, setMap] = useState<google.maps.Map>();
   const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();

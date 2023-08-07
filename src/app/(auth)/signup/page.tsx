@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   Paper,
   TextInput,
@@ -9,12 +11,15 @@ import {
   Title,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import {BUTTON_VARIANTS} from "~/components/Button";
+import { BUTTON_VARIANTS } from "~/components/Button";
 import { Button } from "~/components";
 import { Container, Frame } from "../components";
 import { useStyles } from "../style";
+import { trpc } from "~/providers";
 
 const Signup = () => {
+  const { data: session } = useSession();
+
   const form = useForm({
     initialValues: {
       userName: "",
@@ -33,6 +38,12 @@ const Signup = () => {
     },
   });
   const { classes } = useStyles();
+  const { mutate } = trpc.auth.signup.useMutation();
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
     <Container>
       <Frame>
@@ -47,7 +58,15 @@ const Signup = () => {
             Sign Up
           </Title>
           <Box maw={320} mx="auto" style={{ width: "100%" }}>
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <form
+              onSubmit={form.onSubmit((values) =>
+                mutate({
+                  name: values.userName,
+                  email: values.email,
+                  password: values.password,
+                })
+              )}
+            >
               <TextInput
                 label="User Name"
                 placeholder="Name"
@@ -72,7 +91,11 @@ const Signup = () => {
                 placeholder="Confirm password"
                 {...form.getInputProps("confirmPassword")}
               />
-              <Button buttonType={BUTTON_VARIANTS.PRIMARY} type="submit" mt="sm">
+              <Button
+                buttonType={BUTTON_VARIANTS.PRIMARY}
+                type="submit"
+                mt="sm"
+              >
                 Submit
               </Button>
 
