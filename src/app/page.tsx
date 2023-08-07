@@ -9,15 +9,13 @@ const HomePage = () => {
   const { classes } = useStyles();
   return (
     <>
-      <main className={classes.main}>
-        <div className={classes.absoluteTopLeft} />
-        <div className={classes.absoluteBottomRight} />
+      <div className={classes.main}>
         <div className={classes.relativeContainer}>
           <div className={classes.flexContainer}>
             <div className={classes.absoluteInside} />
             <div className={classes.flexContainer}>
               <Image
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="logo"
                 width={45.5}
                 height={57.5}
@@ -43,7 +41,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

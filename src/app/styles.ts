@@ -3,7 +3,7 @@ export const useStyles = createStyles((theme) => ({
   main: {
     position: "relative",
     display: "flex",
-    height: "100vh",
+    height: "calc(100vh - 9.5rem)",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
