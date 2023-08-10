@@ -118,12 +118,11 @@ const LogIn = () => {
             />
 
             <Button
+              name="Login"
               buttonType={BUTTON_VARIANTS.SECONDARY}
               style={{ marginTop: "5%" }}
               type="submit"
-            >
-              Login
-            </Button>
+            />
 
             <Text mt="md">
               Don&apos;t have an account? &nbsp;

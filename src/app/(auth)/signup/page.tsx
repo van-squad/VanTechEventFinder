@@ -92,12 +92,11 @@ const Signup = () => {
                 {...form.getInputProps("confirmPassword")}
               />
               <Button
+                name="Submit"
                 buttonType={BUTTON_VARIANTS.PRIMARY}
                 type="submit"
                 mt="sm"
-              >
-                Submit
-              </Button>
+              />
 
               <Text mt="md">
                 Already have an account?{" "}

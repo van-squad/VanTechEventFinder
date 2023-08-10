@@ -60,13 +60,12 @@ const Header = () => {
   const items = navLinks.map((link) =>
     link.label === "Log Out" && link.buttonType ? (
       <Button
+        name={link.label}
         key={link.label}
         buttonType={link.buttonType}
         style={{ margin: "1rem" }}
         onClick={() => void signOut()}
-      >
-        {link.label}
-      </Button>
+      />
     ) : (
       <Link
         key={link.label}
