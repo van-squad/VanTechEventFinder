@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
+import EventCard from "../EventCard";
+import { techEvents } from "~/events";
 import { useStyles } from "./styles";
 
 export const GoogleMaps = () => {
@@ -62,6 +64,11 @@ export const GoogleMaps = () => {
       <div id="map" className={classes.googleMap}></div>
       <div className={classes.container}>
         <Calendar date={date} setDate={setDate} />
+      </div>
+      <div className={classes.cards}>
+        {techEvents.map((event, i) => (
+          <EventCard key={i} event={event} />
+        ))}
       </div>
     </div>
   );
