@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
@@ -8,7 +8,11 @@ import EventCard from "../EventCard";
 import { techEvents } from "~/events";
 import { useStyles } from "./styles";
 
-export const GoogleMaps = () => {
+interface GoogleMapsProps {
+  setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   const [, setMap] = useState<google.maps.Map>();
   const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const { colorScheme } = useMantineColorScheme();
@@ -37,6 +41,7 @@ export const GoogleMaps = () => {
             });
 
             setMap(newMap);
+            setMapLoaded(true);
           },
           (error) => {
             console.error("Error getting current location:", error);
@@ -57,7 +62,7 @@ export const GoogleMaps = () => {
     };
 
     void fetchMap();
-  }, [colorScheme]);
+  }, [colorScheme, setMapLoaded]);
 
   return (
     <div className={classes.wrapper}>
