@@ -1,12 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import NextAuth from "next-auth";
 import { authOptions } from "~/server/auth";
 
-type CombineRequest = Request & NextApiRequest;
-type CombineResponse = Response & NextApiResponse;
+interface RouteHandlerContext {
+  params: { nextauth: string[] };
+}
 
-async function auth(req: CombineRequest, res: CombineResponse) {
+async function auth(req: NextRequest, context: RouteHandlerContext) {
   // Get user's preference from cookie
   const cookieStore = cookies();
   const rememberMe = cookieStore.get("remember-me");
@@ -29,7 +30,7 @@ async function auth(req: CombineRequest, res: CombineResponse) {
     });
   }
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return await NextAuth(req, res, authOptions);
+  return await NextAuth(req, context, authOptions);
 }
 
 export { auth as GET, auth as POST };
