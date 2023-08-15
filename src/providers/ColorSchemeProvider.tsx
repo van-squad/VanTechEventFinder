@@ -15,9 +15,9 @@ const ColorSchemeProvider = ({ children }: ColorSchemeProps) => {
     getInitialValueInEffect: true,
   });
 
-  const current = localStorage
-    .getItem("mantine-color-scheme")
-    ?.replace(/\"/g, "") as ColorScheme;
+  // const current = localStorage
+  //   .getItem("mantine-color-scheme")
+  //   ?.replace(/\"/g, "") as ColorScheme;
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
@@ -25,10 +25,7 @@ const ColorSchemeProvider = ({ children }: ColorSchemeProps) => {
   useHotkeys([["mod+J", () => toggleColorScheme()]]);
 
   return (
-    <ColorTheme
-      colorScheme={current || colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
+    <ColorTheme colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       {children}
     </ColorTheme>
   );
