@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Text } from "@mantine/core";
-import { Button } from "~/components";
+import { Button } from "~/app/components";
 import { useStyles } from "./styles";
 
 const HomePage = () => {

@@ -13,9 +13,8 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ThemeSwitch } from "../../components";
-import { Button } from "~/components";
-import { BUTTON_VARIANTS } from "~/components/Button";
+import { ThemeSwitch, Button } from "~/app/components";
+import { BUTTON_VARIANTS } from "~/app/components/Button";
 import { useStyles, HEADER_HEIGHT } from "./styles";
 import { signOut } from "next-auth/react";
 
