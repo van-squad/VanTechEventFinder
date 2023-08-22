@@ -16,4 +16,5 @@ export const useStyles = createStyles((theme) => ({
     height: "100vh",
     width: "100%",
   },
+  cards: { position: "absolute", top: "10px", left: "300px" },
 }));
