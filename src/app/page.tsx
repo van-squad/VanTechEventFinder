@@ -34,7 +34,7 @@ const HomePage = () => {
                 happening in Vancouver? This app displays all upcoming tech
                 events in Vancouver, and you can search for events by date.
               </Text>
-              <Button name="Find Events" linkTo="/map" buttonType="tertiary" />
+              <Button name="Find Events" href="/map" buttonType="tertiary" />
             </div>
           </div>
         </div>

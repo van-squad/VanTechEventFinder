@@ -1,6 +1,5 @@
 "use client";
 import {
-  Box,
   Button as MantineButton,
   type ButtonProps as MantineButtonProps,
 } from "@mantine/core";
@@ -18,15 +17,15 @@ type ButtonVariant = (typeof BUTTON_VARIANTS)[keyof typeof BUTTON_VARIANTS];
 interface ButtonProps extends MantineButtonProps {
   buttonType: ButtonVariant;
   onClick?: () => void;
-  linkTo?: string;
   name: string;
+  href?: string;
   icon?: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   buttonType,
-  linkTo,
   name,
+  href,
   icon,
   ...rest
 }) => {
@@ -38,16 +37,14 @@ export const Button: React.FC<ButtonProps> = ({
       ? classes.secondary
       : classes.tertiary;
 
-  return linkTo ? (
-    <Link href={linkTo}>
-      <MantineButton className={color} {...rest}>
-        {icon && <Box mr={3}>{icon}</Box>}
+  return href ? (
+    <Link href={href}>
+      <MantineButton className={color} leftIcon={icon} {...rest}>
         {name}
       </MantineButton>
     </Link>
   ) : (
-    <MantineButton className={color} {...rest}>
-      {icon && <Box mr={3}>{icon}</Box>}
+    <MantineButton className={color} leftIcon={icon} {...rest}>
       {name}
     </MantineButton>
   );
