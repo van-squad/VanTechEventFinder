@@ -24,6 +24,7 @@ export const GET_EVENTS = `
                 lng
               }
               image {
+                id
                 baseUrl
               }
             }
