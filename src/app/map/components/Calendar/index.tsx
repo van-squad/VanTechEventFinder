@@ -9,7 +9,7 @@ type CalendarProps = {
   setDate: Dispatch<SetStateAction<Date | null>>;
 };
 
-const Calendar = ({ date = new Date(Date.now()), setDate }: CalendarProps) => {
+const Calendar = ({ date, setDate }: CalendarProps) => {
   return (
     <Group position="center">
       <DatePicker value={date} onChange={setDate} />

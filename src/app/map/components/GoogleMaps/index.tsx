@@ -1,22 +1,29 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
 import { techEvents } from "~/events";
 import { useStyles } from "./styles";
+import useFetchEvent from "~/hooks/useFetchEvent";
 
 interface GoogleMapsProps {
   setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
+  const today: Date | null = useMemo(() => {
+    return new Date(Date.now());
+  }, []);
   const [, setMap] = useState<google.maps.Map>();
-  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
+  const [date, setDate] = useState<Date | null>(today);
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
+  const { loading, error, result } = useFetchEvent(null, date);
+
+  console.log(loading, error, result);
 
   useEffect(() => {
     const fetchMap = async () => {
