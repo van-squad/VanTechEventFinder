@@ -2,8 +2,8 @@
 import { Container, Flex, Text, Image, useMantineTheme } from "@mantine/core";
 import { useStyles } from "./styles";
 import type { Event } from "~/types";
-import { Button } from "~/components";
 import { IconMapPin } from "@tabler/icons-react";
+import { Button } from "~/app/components";
 
 interface EventCardProps {
   event: Event;
@@ -39,9 +39,12 @@ const EventCard = ({ event }: EventCardProps) => {
             {event.description}
           </Text>
         </Container>
-        <Button mt={15} buttonType="secondary">
-          View Details
-        </Button>
+        <Button
+          name="View Details"
+          href={event.website}
+          mt={15}
+          buttonType="secondary"
+        />
       </Flex>
     </div>
   );
