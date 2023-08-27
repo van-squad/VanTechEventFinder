@@ -1,13 +1,19 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
+import EventCard from "../EventCard";
+import { techEvents } from "~/events";
 import { useStyles } from "./styles";
 import useFetchEvent from "~/hooks/useFetchEvent";
 
-export const GoogleMaps = () => {
+interface GoogleMapsProps {
+  setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   const today: Date | null = useMemo(() => {
     return new Date(Date.now());
   }, []);
@@ -42,6 +48,7 @@ export const GoogleMaps = () => {
             });
 
             setMap(newMap);
+            setMapLoaded(true);
           },
           (error) => {
             console.error("Error getting current location:", error);
@@ -62,13 +69,18 @@ export const GoogleMaps = () => {
     };
 
     void fetchMap();
-  }, [colorScheme]);
+  }, [colorScheme, setMapLoaded]);
 
   return (
     <div className={classes.wrapper}>
       <div id="map" className={classes.googleMap}></div>
       <div className={classes.container}>
         <Calendar date={date} setDate={setDate} />
+      </div>
+      <div className={classes.cards}>
+        {techEvents.map((event, i) => (
+          <EventCard key={i} event={event} />
+        ))}
       </div>
     </div>
   );
