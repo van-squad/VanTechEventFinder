@@ -1,11 +1,13 @@
-// Super gross
-// eslint-disable-next-line
-// @ts-nocheck
+import type { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 import NextAuth from "next-auth";
 import { authOptions } from "~/server/auth";
 
-async function auth(req, res) {
+interface RouteHandlerContext {
+  params: { nextauth: string[] };
+}
+
+async function auth(req: NextRequest, context: RouteHandlerContext) {
   // Get user's preference from cookie
   const cookieStore = cookies();
   const rememberMe = cookieStore.get("remember-me");
@@ -28,7 +30,7 @@ async function auth(req, res) {
     });
   }
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return await NextAuth(req, res, authOptions);
+  return await NextAuth(req, context, authOptions);
 }
 
 export { auth as GET, auth as POST };
