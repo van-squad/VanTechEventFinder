@@ -4,17 +4,10 @@ import React, { useState, useEffect } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
-// import EventCard from "../EventCard";
+import EventCard from "../EventCard";
 import { useStyles } from "./styles";
 import { dummyData } from "../../event";
 import ReactDOMServer from "react-dom/server";
-import { IconMapPin } from "@tabler/icons-react";
-import { CloseButton, Group } from "@mantine/core";
-import { Container, Flex, Text, Image, useMantineTheme } from "@mantine/core";
-import Link from "next/link";
-import { Button } from "~/components";
-import { BUTTON_VARIANTS } from "~/components/Button";
-
 export interface EventInterface {
   id: string;
   title: string;
@@ -40,11 +33,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
-  const [selectedEvent, setSelectedEvent] = useState<EventInterface | null>(
-    null
-  );
-
-  const theme = useMantineTheme();
+  const [selectedEvent, setSelectedEvent] = useState<EventInterface | null>(null)
 
   useEffect(() => {
     const fetchMap = async () => {
@@ -98,50 +87,9 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
               eventMarker.addListener("click", () => {
                 setSelectedEvent(event);
                 const eventCardHtml = ReactDOMServer.renderToString(
-                  <div className={classes.card}>
-                    <Flex direction="column" align="center" p={30}>
-                      <Image
-                        src={
-                          event?.imageUrl && event?.imageId
-                            ? `${event.imageUrl}${event.imageId}/676x380.webp`
-                            : undefined
-                        }
-                        alt={event?.title}
-                        width="100%"
-                        height={120}
-                      />
-                      <Container fz="xs" p={0}>
-                        <Text fw="bold" color={theme.colors.red[0]} mt={15}>
-                          {event?.dateTime}
-                        </Text>
-                        <Text fz="lg" fw="bold" mb={2}>
-                          {event?.title}
-                        </Text>
-                        <Text color="#999" lh={1}>
-                          <Flex align="center">
-                            <IconMapPin size="1rem" stroke={1.5} />
-                            {event?.venue?.name}
-                          </Flex>
-                        </Text>
-                        <Text mt={10} lineClamp={3}>
-                          {event?.description}
-                        </Text>
-                      </Container>
-                      {event?.eventUrl && (
-                        <Link target="_blank" href={event.eventUrl}>
-                          <Button
-                            mt={15}
-                            buttonType={BUTTON_VARIANTS.SECONDARY}
-                          >
-                            View Details
-                          </Button>
-                        </Link>
-                      )}
-                    </Flex>
-                  </div>
+                  <EventCard event={event} />
                 );
                 infoWindow.setContent(eventCardHtml);
-                // Open the InfoWindow at the marker's position
                 infoWindow.open(newMap, eventMarker);
               });
             });

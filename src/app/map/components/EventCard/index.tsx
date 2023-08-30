@@ -4,16 +4,14 @@ import { useStyles } from "./styles";
 import Link from "next/link";
 import { Button } from "~/components";
 import { IconMapPin } from "@tabler/icons-react";
-import { CloseButton, Group } from "@mantine/core";
 import { EventInterface } from "../GoogleMaps";
 
 
 interface EventCardProps {
-  event: EventInterface | null;
-  onClose: () => void;
+  event: EventInterface;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, onClose }) => {
+const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
