@@ -6,7 +6,6 @@ import { Button } from "~/components";
 import { IconMapPin } from "@tabler/icons-react";
 import { EventInterface } from "../GoogleMaps";
 
-
 interface EventCardProps {
   event: EventInterface;
 }
@@ -45,6 +44,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             {event?.description}
           </Text>
         </Container>
+
         {event?.eventUrl && (
           <Link target="_blank" href={event.eventUrl}>
             <Button mt={15} buttonType="secondary">
@@ -52,6 +52,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             </Button>
           </Link>
         )}
+
       </Flex>
     </div>
   );

@@ -1,10 +1,12 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
 import { useStyles } from "./styles";
+
 import { dummyData } from "../../event";
 import { Image, Text } from "@mantine/core";
 import {
@@ -36,11 +38,13 @@ const containerStyle = {
   height: "100vh",
 };
 
+
 interface GoogleMapsProps {
   setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
+
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
   const [infoWindowID, setInfoWindowID] = useState<number | null>(null);
@@ -63,6 +67,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       </Text>
     </div>
   );
+
   useEffect(() => {
     const fetchMap = async () => {
       await loader.load();

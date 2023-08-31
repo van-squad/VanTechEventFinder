@@ -27,8 +27,8 @@ export const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
   },
   googleMap: {
-    height: "100vh",
     width: "100%",
+    height: "calc(100vh - 4.375rem)",
   },
   card: {
     width: "22rem",

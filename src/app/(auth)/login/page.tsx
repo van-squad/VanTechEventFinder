@@ -11,8 +11,8 @@ import {
   Title,
   Text,
 } from "@mantine/core";
-import { BUTTON_VARIANTS } from "~/components/Button";
-import { Button } from "~/components";
+import { BUTTON_VARIANTS } from "~/app/components/Button";
+import { Button } from "~/app/components";
 import { Container, Frame } from "../components";
 
 import { useStyles } from "../style";
@@ -118,12 +118,11 @@ const LogIn = () => {
             />
 
             <Button
+              name="Login"
               buttonType={BUTTON_VARIANTS.SECONDARY}
               style={{ marginTop: "5%" }}
               type="submit"
-            >
-              Login
-            </Button>
+            />
 
             <Text mt="md">
               Don&apos;t have an account? &nbsp;
