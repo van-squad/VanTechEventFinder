@@ -22,7 +22,7 @@ const HomePage = () => {
                 className={classes.logo}
               />
               <Text className={classes.heading} fz="lg" fw={700} mb={10}>
-                Tech Meetup Map
+                VanTech Event Finder
               </Text>
               <Text
                 className={classes.description}
