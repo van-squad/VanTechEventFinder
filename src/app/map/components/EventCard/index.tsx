@@ -2,7 +2,7 @@
 import { Container, Flex, Text, Image, useMantineTheme } from "@mantine/core";
 import { useStyles } from "./styles";
 import Link from "next/link";
-import { Button } from "~/components";
+import { Button } from "../../../components/Button";
 import { IconMapPin } from "@tabler/icons-react";
 import { EventInterface } from "../GoogleMaps";
 
@@ -47,8 +47,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
         {event?.eventUrl && (
           <Link target="_blank" href={event.eventUrl}>
-            <Button mt={15} buttonType="secondary">
-              View Details
+            <Button name="View Details" mt={15} buttonType="secondary">
             </Button>
           </Link>
         )}
