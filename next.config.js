@@ -1,4 +1,4 @@
-const { parsed: localEnv } = require("dotenv").config();
+// const { parsed: localEnv } = require("dotenv").config();
 
 module.exports = {
   images: {
@@ -9,7 +9,7 @@ module.exports = {
       },
     ],
   },
-  env: {
-    NEXT_PUBLIC_GOOGLE_MAPS_KEY: localEnv.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
-  },
+  // env: {
+  //   NEXT_PUBLIC_GOOGLE_MAPS_KEY: localEnv.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
+  // },
 };

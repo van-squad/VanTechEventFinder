@@ -126,7 +126,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   return (
     <div>
       <LoadScript
-        googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || ''}
+        googleMapsApiKey="AIzaSyBno3t41t6dGC-Krh57KQbKU_giH9XQwRU"
         loadingElement={Loadings}
       >
         <GoogleMap
