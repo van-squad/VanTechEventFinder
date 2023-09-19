@@ -1,4 +1,3 @@
-// const { parsed: localEnv } = require("dotenv").config();
 
 module.exports = {
   images: {
@@ -8,8 +7,5 @@ module.exports = {
         hostname: "secure.meetupstatic.com",
       },
     ],
-  },
-  // env: {
-  //   NEXT_PUBLIC_GOOGLE_MAPS_KEY: localEnv.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
-  // },
+  }
 };

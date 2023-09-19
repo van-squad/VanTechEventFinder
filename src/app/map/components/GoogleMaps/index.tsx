@@ -6,6 +6,7 @@ import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
 import { useStyles } from "./styles";
+import { env } from "~/env.mjs";
 
 import { dummyData } from "../../event";
 import { Image, Text } from "@mantine/core";
@@ -44,7 +45,7 @@ interface GoogleMapsProps {
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
-
+  const googleAPiKey = env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
   const [infoWindowID, setInfoWindowID] = useState<number | null>(null);
@@ -126,7 +127,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   return (
     <div>
       <LoadScript
-        googleMapsApiKey="AIzaSyBno3t41t6dGC-Krh57KQbKU_giH9XQwRU"
+        googleMapsApiKey={googleAPiKey || ""}
         loadingElement={Loadings}
       >
         <GoogleMap
