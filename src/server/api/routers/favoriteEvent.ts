@@ -7,7 +7,7 @@ export const favoriteEventsRouter = router({
   getFavorites: privateProcedure
     .input(
       z.object({
-        // userId
+        // email
         userId: z.string().nonempty(),
       })
     )

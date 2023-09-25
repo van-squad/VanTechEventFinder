@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
   secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
-    maxAge: 15 * 60,
+    maxAge: 15 * 60000000,
   },
   callbacks: {
     jwt({ token, account }) {
@@ -78,6 +78,10 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
       }
       return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.sub as string;
+      return session;
     },
   },
 };
