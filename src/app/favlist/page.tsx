@@ -10,10 +10,16 @@ import { useEffect } from "react";
 const FavPage = () => {
   const { classes } = useStyles();
   const { data: session } = useSession();
-  const userId = session?.user.id as string;
-  const favEvents = trpc.favoriteEvents.getFavorites.useQuery({ userId });
-  console.log("ハローデータ: ", favEvents.data);
+  const userId =
+    session !== undefined
+      ? (session?.user.id as string)
+      : "clmy48rdy0006d7cs9d99rgho";
+  const favEvents = trpc.favoriteEvents.getFavorites.useQuery({
+    userId,
+  });
+  // status !== "loading" && console.log(session, status);
   useEffect(() => {
+    console.log("session: ", session);
     if (!session) redirect("/login");
   }, [session]);
   if (favEvents.isFetching) {
@@ -24,7 +30,9 @@ const FavPage = () => {
       <Text fz="lg" fw={700} mb={20}>
         Your Favorite Tech Events
       </Text>
-      {favEvents.data === undefined && <Text>No fav events found.</Text>}
+      {(favEvents.data === undefined || favEvents.data.length === 0) && (
+        <Text>No fav events found.</Text>
+      )}
       {/* <Text>{data?.greeting}</Text> */}
       {/* <Card
         title="Coffee.js"

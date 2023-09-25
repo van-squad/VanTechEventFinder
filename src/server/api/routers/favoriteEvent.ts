@@ -1,10 +1,10 @@
-// import { TRPCError } from "@trpc/server";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma } from "~/server/db";
-import { router, privateProcedure } from "../trpc";
+import { router, privateProcedure, publicProcedure } from "../trpc";
 
 export const favoriteEventsRouter = router({
-  getFavorites: privateProcedure
+  getFavorites: publicProcedure
     .input(
       z.object({
         // userId
@@ -15,6 +15,12 @@ export const favoriteEventsRouter = router({
       const favEvents = await prisma.favEvent.findMany({
         where: { userId: input.userId },
       });
+      if (!favEvents) {
+        throw new TRPCError({
+          code: "UNPROCESSABLE_CONTENT",
+          message: "Failed to get fav events",
+        });
+      }
       console.log({ favEvents });
       return favEvents;
     }),

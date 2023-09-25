@@ -36,6 +36,7 @@ export async function getUser(): Promise<User | null> {
   if (!token || !token.name || !token.email || !token.sub) {
     return null;
   }
+  console.log("とけんん：", token);
   return {
     id: token.sub,
     name: token.name,

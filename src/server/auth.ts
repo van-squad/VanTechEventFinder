@@ -70,6 +70,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     maxAge: 60 * 60 * 24 * 30,
+    updateAge: 15 * 60,
   },
   callbacks: {
     jwt({ token, account }) {
@@ -80,6 +81,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session({ session, token }) {
+      // session.expires = 15 * 60 * 60
       session.user.id = token.sub as string;
       return session;
     },
