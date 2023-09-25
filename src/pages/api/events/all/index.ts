@@ -23,6 +23,7 @@ export interface Result {
   venue: Venue;
   dateTime: Date;
   image: {
+    id: string;
     baseUrl: string;
   };
 }
@@ -48,6 +49,7 @@ interface Body {
 export type ModifiedResult = Omit<Result, "dateTime" | "image"> & {
   dateTime: string;
   imageUrl: string;
+  imageId: string;
 };
 
 const FILTER_CONSTANT = {
@@ -97,17 +99,24 @@ export default async function handler(
       const results: ModifiedResult[] = [];
       if (keywordSearch.count > 0) {
         for (const edge of keywordSearch.edges) {
-          results.push({
-            id: edge.node.result.id,
-            title: edge.node.result.title,
-            eventUrl: edge.node.result.eventUrl,
-            description: edge.node.result.description,
-            venue: edge.node.result.venue,
-            imageUrl: edge.node.result.image.baseUrl,
-            dateTime: convertDate(edge.node.result.dateTime),
-          });
+          if (
+            edge.node.result.venue &&
+            edge.node.result.venue?.address !== ""
+          ) {
+            results.push({
+              id: edge.node.result.id,
+              title: edge.node.result.title,
+              eventUrl: edge.node.result.eventUrl,
+              description: edge.node.result.description,
+              venue: edge.node.result.venue,
+              imageId: edge.node.result.image.id,
+              imageUrl: edge.node.result.image.baseUrl,
+              dateTime: convertDate(edge.node.result.dateTime),
+            });
+          }
         }
       }
+
       res.status(200).json(results);
     } catch (error) {
       console.log("error here", error);

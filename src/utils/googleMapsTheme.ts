@@ -1,5 +1,15 @@
 export const mapTheme = {
-  light: [],
+  light: [
+    {
+      featureType: "poi",
+      elementType: "all",
+      stylers: [
+        {
+          visibility: "off",
+        },
+      ],
+    }
+  ],
   dark: [
     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -11,19 +21,14 @@ export const mapTheme = {
     },
     {
       featureType: "poi",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#d59563" }],
+      elementType: "all",
+      stylers: [
+        {
+          visibility: "off",
+        },
+      ],
     },
-    {
-      featureType: "poi.park",
-      elementType: "geometry",
-      stylers: [{ color: "#263c3f" }],
-    },
-    {
-      featureType: "poi.park",
-      elementType: "labels.text.fill",
-      stylers: [{ color: "#6b9a76" }],
-    },
+
     {
       featureType: "road",
       elementType: "geometry",

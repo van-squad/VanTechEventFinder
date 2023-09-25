@@ -14,7 +14,6 @@ const MapPage = () => {
 
   return (
     <>
-      {isLoading && <Loading />}
       <GoogleMaps setMapLoaded={setMapLoaded} />
     </>
   );
