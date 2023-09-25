@@ -1,30 +1,30 @@
 "use client";
 import { Text } from "@mantine/core";
 // import { Card } from "./compoments";
-// import { trpc } from "~/providers";
+import { trpc } from "~/providers";
 import { useSession } from "next-auth/react";
 import { useStyles } from "./styles";
-// import { useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
 const FavPage = () => {
   const { classes } = useStyles();
   const { data: session } = useSession();
-  console.log(session);
+  const userId = session?.user.id as string;
+  const favEvents = trpc.favoriteEvents.getFavorites.useQuery({ userId });
+  console.log("ハローデータ: ", favEvents.data);
   useEffect(() => {
     if (!session) redirect("/login");
   }, [session]);
-  // fetch users' fav events
-  // const { data, isFetching } = trpc.favoriteEvents.getFavorites.useQuery({
-  //   userId: "1",
-  // });
-  // if (isFetching) return <div className={classes.container}>Loading...</div>;
+  if (favEvents.isFetching) {
+    return <div className={classes.container}>Loading...</div>;
+  }
   return (
     <div className={classes.container}>
       <Text fz="lg" fw={700} mb={20}>
         Your Favorite Tech Events
       </Text>
+      {favEvents.data === undefined && <Text>No fav events found.</Text>}
       {/* <Text>{data?.greeting}</Text> */}
       {/* <Card
         title="Coffee.js"
