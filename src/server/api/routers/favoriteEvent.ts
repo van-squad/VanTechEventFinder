@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma } from "~/server/db";
-import { router, privateProcedure, publicProcedure } from "../trpc";
+import { router, publicProcedure } from "../trpc";
 
 export const favoriteEventsRouter = router({
   getFavorites: publicProcedure
@@ -24,7 +24,7 @@ export const favoriteEventsRouter = router({
       console.log({ favEvents });
       return favEvents;
     }),
-  addFavorite: privateProcedure
+  addFavorite: publicProcedure
     .input(
       z.object({
         // meetup data
@@ -41,7 +41,7 @@ export const favoriteEventsRouter = router({
         },
       });
     }),
-  deleteFavorite: privateProcedure
+  deleteFavorite: publicProcedure
     .input(
       z.object({
         // meetup data, userId?

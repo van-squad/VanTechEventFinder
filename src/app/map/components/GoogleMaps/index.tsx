@@ -16,6 +16,8 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
+import { trpc } from "~/providers";
+import { useSession } from "next-auth/react";
 
 export interface EventInterface {
   id: string;
@@ -38,7 +40,6 @@ const containerStyle = {
   width: "100vw",
   height: "100vh",
 };
-
 
 interface GoogleMapsProps {
   setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,6 +69,18 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       </Text>
     </div>
   );
+  const { data: session } = useSession();
+
+  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+
+  const handleAddFavEvent: (event: EventInterface) => void = (event) => {
+    mutate({
+      id: event.id,
+      userId: session?.user.id as string,
+      // TODO: Need to fix type error
+      // date: event.dateTime,
+    });
+  };
 
   useEffect(() => {
     const fetchMap = async () => {
@@ -75,11 +88,11 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          const mapOptions = {
-            center: { lat: latitude, lng: longitude },
-            zoom: 10,
-            styles: colorScheme === "dark" ? mapTheme.dark : mapTheme.light,
-          };
+          // const mapOptions = {
+          //   center: { lat: latitude, lng: longitude },
+          //   zoom: 10,
+          //   styles: colorScheme === "dark" ? mapTheme.dark : mapTheme.light,
+          // };
           setCurrentMarker(
             <Marker position={{ lat: latitude, lng: longitude }} />
           );
@@ -103,7 +116,10 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
                   >
                     {infoWindowID === index && (
                       <InfoWindow>
-                        <EventCard event={event} />
+                        <EventCard
+                          event={event}
+                          onClick={() => handleAddFavEvent(event)}
+                        />
                       </InfoWindow>
                     )}
                   </Marker>
@@ -122,7 +138,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
     };
 
     void fetchMap();
-  }, [colorScheme, setMapLoaded, infoWindowID]);
+  }, [colorScheme, setMapLoaded, infoWindowID, handleAddFavEvent]);
 
   return (
     <div>

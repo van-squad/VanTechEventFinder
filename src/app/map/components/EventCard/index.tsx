@@ -4,13 +4,14 @@ import { useStyles } from "./styles";
 import Link from "next/link";
 import { Button } from "../../../components/Button";
 import { IconMapPin } from "@tabler/icons-react";
-import { EventInterface } from "../GoogleMaps";
+import { type EventInterface } from "../GoogleMaps";
 
 interface EventCardProps {
   event: EventInterface;
+  onClick: (event: EventInterface) => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
@@ -47,11 +48,11 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
         {event?.eventUrl && (
           <Link target="_blank" href={event.eventUrl}>
-            <Button name="View Details" mt={15} buttonType="secondary">
-            </Button>
+            <Button name="View Details" mt={15} buttonType="secondary"></Button>
           </Link>
         )}
 
+        <button onClick={() => onClick(event)}>ADD</button>
       </Flex>
     </div>
   );
