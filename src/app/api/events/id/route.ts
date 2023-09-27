@@ -1,7 +1,7 @@
-import { type NextApiRequest, type NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import { request } from "graphql-request";
 import { GET_EVENT_BY_ID } from "~/queries/get-event-by-id";
-import { type Result } from "./all";
+import { type Result } from "../all/route";
 import { convertDate } from "~/utils";
 import { env } from "~/env.mjs";
 const endpoint = env.EVENTS_ENDPOINT;
@@ -10,13 +10,12 @@ interface Event {
   event: Result | null;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const query = req.query;
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
+  console.log({ url: req.url, id, req });
   const variables = {
-    eventId: query.id,
+    eventId: id,
   };
   try {
     const { event }: Event = await request(
@@ -37,10 +36,13 @@ export default async function handler(
         imageUrl: event.image.baseUrl,
         dateTime: convertDate(event.dateTime),
       };
-      return res.status(200).json(result);
+      return NextResponse.json(result, { status: 200 });
     }
-    res.status(404).json({ message: "no event found" });
+    return NextResponse.json({ message: "no event found" }, { status: 400 });
   } catch (error) {
-    res.status(400).json({ message: "fetch data failed", error });
+    return NextResponse.json(
+      { message: "fetch data failed", error },
+      { status: 400 }
+    );
   }
 }
