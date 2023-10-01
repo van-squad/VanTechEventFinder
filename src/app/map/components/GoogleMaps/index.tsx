@@ -127,7 +127,6 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
     }
   }, [loading, error, result, infoWindowID]);
 
-  console.log(infoWindowID);
 
   return (
     <div>

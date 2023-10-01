@@ -13,7 +13,6 @@ interface Event {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id");
-  console.log({ url: req.url, id, req });
   const variables = {
     eventId: id,
   };

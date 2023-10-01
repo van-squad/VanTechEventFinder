@@ -37,7 +37,6 @@ export const authRouter = router({
           name,
         },
       });
-      console.log({ newUser });
       return newUser;
     }),
 });
