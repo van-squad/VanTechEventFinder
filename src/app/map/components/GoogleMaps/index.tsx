@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useMantineColorScheme } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
@@ -73,14 +73,17 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
 
   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
-  const handleAddFavEvent: (event: EventInterface) => void = (event) => {
-    mutate({
-      id: event.id,
-      userId: session?.user.id as string,
-      // TODO: Need to fix type error
-      // date: event.dateTime,
-    });
-  };
+  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
+    (event) => {
+      mutate({
+        id: event.id,
+        userId: session?.user.id as string,
+        // TODO: Need to fix type error
+        // date: event.dateTime,
+      });
+    },
+    [mutate, session?.user.id]
+  );
 
   useEffect(() => {
     const fetchMap = async () => {
@@ -88,11 +91,6 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          // const mapOptions = {
-          //   center: { lat: latitude, lng: longitude },
-          //   zoom: 10,
-          //   styles: colorScheme === "dark" ? mapTheme.dark : mapTheme.light,
-          // };
           setCurrentMarker(
             <Marker position={{ lat: latitude, lng: longitude }} />
           );
