@@ -6,7 +6,7 @@ import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
 import { useStyles } from "./styles";
-import { env } from "~/env.mjs";
+// import { env } from "~/env.mjs";
 
 import { dummyData } from "../../event";
 import { Image, Text } from "@mantine/core";
@@ -39,13 +39,12 @@ const containerStyle = {
   height: "100vh",
 };
 
-
 interface GoogleMapsProps {
   setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
-  const googleAPiKey = env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+  const googleAPiKey = "AIzaSyCtX9hYFg7SLKTvB_tC1dopbk86g1wGD7E";
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
   const [infoWindowID, setInfoWindowID] = useState<number | null>(null);
@@ -75,11 +74,11 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          const mapOptions = {
-            center: { lat: latitude, lng: longitude },
-            zoom: 10,
-            styles: colorScheme === "dark" ? mapTheme.dark : mapTheme.light,
-          };
+          // const mapOptions = {
+          //   center: { lat: latitude, lng: longitude },
+          //   zoom: 10,
+          //   styles: colorScheme === "dark" ? mapTheme.dark : mapTheme.light,
+          // };
           setCurrentMarker(
             <Marker position={{ lat: latitude, lng: longitude }} />
           );
