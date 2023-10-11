@@ -1,13 +1,13 @@
 "use client";
+import Link from "next/link";
 import { Container, Flex, Text, Image, useMantineTheme } from "@mantine/core";
 import { useStyles } from "./styles";
-import Link from "next/link";
-import { Button } from "../../../components/Button";
 import { IconMapPin } from "@tabler/icons-react";
-import { EventInterface } from "../GoogleMaps";
+import { Button } from "~/app/components";
+import { type ModifiedResult } from "~/app/api/events/all/route";
 
 interface EventCardProps {
-  event: EventInterface;
+  event: ModifiedResult;
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
@@ -29,7 +29,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         />
         <Container fz="xs" p={0}>
           <Text fw="bold" color={theme.colors.red[0]} mt={15}>
-            {event?.dateTime}
+            {event.dateTime}
           </Text>
           <Text fz="lg" fw="bold" mb={2}>
             {event?.title}
@@ -37,7 +37,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           <Text color="#999" lh={1}>
             <Flex align="center">
               <IconMapPin size="1rem" stroke={1.5} />
-              {event?.venue?.name}
+              {event.venue.address}
             </Flex>
           </Text>
           <Text mt={10} lineClamp={3}>
@@ -47,11 +47,9 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
         {event?.eventUrl && (
           <Link target="_blank" href={event.eventUrl}>
-            <Button name="View Details" mt={15} buttonType="secondary">
-            </Button>
+            <Button name="View Details" mt={15} buttonType="secondary"></Button>
           </Link>
         )}
-
       </Flex>
     </div>
   );

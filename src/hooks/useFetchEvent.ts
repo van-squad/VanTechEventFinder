@@ -1,27 +1,33 @@
 import { useState, useEffect } from "react";
-import { type ModifiedResult } from "~/pages/api/events/all";
 
-const useFetchEvent = (id: string | null, date: Date | null) => {
+type FetchEventResponse<T> = {
+  loading: boolean;
+  error: string | null;
+  result: T | null;
+};
+
+const useFetchEvent = <T>(
+  id: string | null,
+  date: Date | null
+): FetchEventResponse<T> => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fetchedData, setFetchedData] = useState<
-    ModifiedResult[] | ModifiedResult | null
-  >(null);
-
+  const [fetchedData, setFetchedData] = useState<T | null>(null);
+  const dateString = date?.toDateString();
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         if (id) {
-          const response = await fetch(`/api/events/${id}`);
-          const data = (await response.json()) as ModifiedResult | null;
+          const response = await fetch(`/api/events/id?id=${id}`);
+          const data = (await response.json()) as T;
           setFetchedData(data);
-        } else if (date) {
+        } else if (dateString) {
           const response = await fetch("/api/events/all", {
             method: "POST",
-            body: JSON.stringify({ date }),
+            body: JSON.stringify({ date: dateString }),
           });
-          const data = (await response.json()) as ModifiedResult[];
+          const data = (await response.json()) as T;
           setFetchedData(data);
         }
 
@@ -35,7 +41,7 @@ const useFetchEvent = (id: string | null, date: Date | null) => {
     };
 
     void fetchData();
-  }, [id, date]);
+  }, [id, dateString]);
 
   return { loading, error, result: fetchedData };
 };

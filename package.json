@@ -30,6 +30,7 @@
     "@trpc/server": "^10.18.0",
     "bcryptjs": "^2.4.3",
     "dayjs": "^1.11.9",
+    "encoding": "^0.1.13",
     "graphql-request": "^6.1.0",
     "moment-timezone": "^0.5.43",
     "next": "^13.4.1",
