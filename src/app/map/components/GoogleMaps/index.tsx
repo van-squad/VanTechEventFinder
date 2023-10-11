@@ -1,23 +1,23 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { useMantineColorScheme } from "@mantine/core";
+import React, { useState, useEffect } from "react";
+import { useMantineColorScheme, Image, Text } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
 import { useStyles } from "./styles";
-import { env } from "~/env.mjs";
+// import { env } from "~/env.mjs";
 
-import { dummyData } from "../../event";
-import { Image, Text } from "@mantine/core";
+import { type ModifiedResult } from "~/app/api/events/all/route";
+import useFetchEvent from "~/hooks/useFetchEvent";
 import {
   GoogleMap,
   LoadScript,
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { trpc } from "~/providers";
-import { useSession } from "next-auth/react";
+// import { trpc } from "~/providers";
+// import { useSession } from "next-auth/react";
 
 export interface EventInterface {
   id: string;
@@ -40,19 +40,24 @@ const containerStyle = {
   width: "100vw",
   height: "100vh",
 };
-
 interface GoogleMapsProps {
   setMapLoaded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
-  const googleAPiKey = env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+  const googleAPiKey = "AIzaSyCtX9hYFg7SLKTvB_tC1dopbk86g1wGD7E";
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
-  const [infoWindowID, setInfoWindowID] = useState<number | null>(null);
+  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
+  const { loading, error, result } = useFetchEvent<ModifiedResult[]>(
+    null,
+    date
+  );
+
+  const [infoWindowID, setInfoWindowID] = useState<string | null>(null);
   const [currentMarker, setCurrentMarker] = useState<JSX.Element | null>(null);
   const [markers, setMarkers] = useState<JSX.Element[] | null>(null); // Initialize as an empty array
-  const [date, setDate] = useState<Date | null>(new Date(Date.now()));
+
   const Loadings = (
     <div className={classes.gifWrapper}>
       <Image
@@ -69,24 +74,25 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       </Text>
     </div>
   );
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
-  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+  // const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
-  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
-    (event) => {
-      mutate({
-        id: event.id,
-        userId: session?.user.id as string,
-        // TODO: Need to fix type error
-        // date: event.dateTime,
-      });
-    },
-    [mutate, session?.user.id]
-  );
+  // const handleAddFavEvent: (event: EventInterface) => void = useCallback(
+  //   (event) => {
+  //     mutate({
+  //       id: event.id,
+  //       userId: session?.user.id as string,
+  //       // TODO: Need to fix type error
+  //       // date: event.dateTime,
+  //     });
+  //   },
+  //   [mutate, session?.user.id]
+  // );
 
   useEffect(() => {
     const fetchMap = async () => {
+      setMapLoaded(true);
       await loader.load();
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -95,39 +101,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
             <Marker position={{ lat: latitude, lng: longitude }} />
           );
 
-          if (dummyData !== null) {
-            const markerElements = dummyData.map((event, i) => {
-              const index = i + 1;
-              return (
-                event?.venue?.lat &&
-                event?.venue?.lng && (
-                  <Marker
-                    key={index}
-                    position={{
-                      lat: event.venue.lat,
-                      lng: event.venue.lng,
-                    }}
-                    onClick={() => {
-                      setInfoWindowID(index);
-                    }}
-                    icon={{ url: "/images/marker.svg" }}
-                  >
-                    {infoWindowID === index && (
-                      <InfoWindow>
-                        <EventCard
-                          event={event}
-                          onClick={() => handleAddFavEvent(event)}
-                        />
-                      </InfoWindow>
-                    )}
-                  </Marker>
-                )
-              );
-            });
-            setMarkers(markerElements as JSX.Element[]);
-          }
-
-          setMapLoaded(true);
+          setMapLoaded(false);
         },
         (error) => {
           console.error("Error getting current location:", error);
@@ -135,8 +109,40 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       );
     };
 
-    void fetchMap();
-  }, [colorScheme, setMapLoaded, infoWindowID, handleAddFavEvent]);
+    if (!loading && !error && result && result.length > 0) {
+      void fetchMap();
+    }
+  }, [colorScheme, setMapLoaded, loading, error, result]);
+
+  useEffect(() => {
+    if (!loading && !error && result && result.length > 0) {
+      const markerElements = result.map((event) => {
+        return (
+          event?.venue?.lat &&
+          event?.venue?.lng && (
+            <Marker
+              key={event.id}
+              position={{
+                lat: event.venue.lat,
+                lng: event.venue.lng,
+              }}
+              onClick={() => {
+                setInfoWindowID(event.id);
+              }}
+              icon={{ url: "/images/marker.svg" }}
+            >
+              {infoWindowID === event.id && (
+                <InfoWindow onCloseClick={() => setInfoWindowID(null)}>
+                  <EventCard event={event} />
+                </InfoWindow>
+              )}
+            </Marker>
+          )
+        );
+      });
+      setMarkers(markerElements as JSX.Element[]);
+    }
+  }, [loading, error, result, infoWindowID]);
 
   return (
     <div>

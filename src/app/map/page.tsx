@@ -1,11 +1,10 @@
 "use client";
 
 import { GoogleMaps } from "./components";
-import { Loading } from "./components/Loading";
 import { useState } from "react";
 
 const MapPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
   const [mapLoaded, setMapLoaded] = useState(false);
 
   setInterval(() => {

@@ -1,17 +1,17 @@
 "use client";
+import Link from "next/link";
 import { Container, Flex, Text, Image, useMantineTheme } from "@mantine/core";
 import { useStyles } from "./styles";
-import Link from "next/link";
-import { Button } from "../../../components/Button";
 import { IconMapPin } from "@tabler/icons-react";
+import { Button } from "~/app/components";
 import { type EventInterface } from "../GoogleMaps";
 
 interface EventCardProps {
   event: EventInterface;
-  onClick: (event: EventInterface) => void;
+  onClick?: (event: EventInterface) => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
+const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
@@ -30,7 +30,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
         />
         <Container fz="xs" p={0}>
           <Text fw="bold" color={theme.colors.red[0]} mt={15}>
-            {event?.dateTime}
+            {event.dateTime}
           </Text>
           <Text fz="lg" fw="bold" mb={2}>
             {event?.title}
@@ -38,7 +38,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
           <Text color="#999" lh={1}>
             <Flex align="center">
               <IconMapPin size="1rem" stroke={1.5} />
-              {event?.venue?.name}
+              {event?.venue?.address}
             </Flex>
           </Text>
           <Text mt={10} lineClamp={3}>
@@ -51,8 +51,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
             <Button name="View Details" mt={15} buttonType="secondary"></Button>
           </Link>
         )}
-
-        <button onClick={() => onClick(event)}>ADD</button>
+        <button>ADD</button>
       </Flex>
     </div>
   );
