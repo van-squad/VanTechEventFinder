@@ -30,7 +30,7 @@ export const favoriteEventsRouter = router({
         // meetup data
         id: z.string().nonempty(),
         userId: z.string().nonempty(),
-        date: z.date().optional(),
+        date: z.string().nonempty(),
       })
     )
     .mutation(async ({ input }) => {

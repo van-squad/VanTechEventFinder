@@ -18,6 +18,7 @@ import {
 } from "@react-google-maps/api";
 import { trpc } from "~/providers";
 import { useSession } from "next-auth/react";
+import { convertLocaleTimeString } from "~/utils/date-converter";
 
 export interface EventInterface {
   id: string;
@@ -75,18 +76,18 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
     </div>
   );
   const { data: session } = useSession();
-  console.log("session: ", session);
 
   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const handleAddFavEvent: (event: EventInterface) => void = useCallback(
     (event) => {
+      const convertedDate = convertLocaleTimeString(event.dateTime);
+
       mutate({
         id: event.id,
         userId: session?.user.id as string,
-        // TODO: Need to fix type error
-        // date: event.dateTime,
+        date: convertedDate,
       });
     },
     [mutate, session?.user.id]

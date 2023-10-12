@@ -22,3 +22,24 @@ const convertDate = (timestamp: Date) => {
 };
 
 export default convertDate;
+
+export function convertLocaleTimeString(dateString: string): string {
+  const today = new Date();
+  const year = today.getFullYear();
+
+  const dateStringArray = dateString.split(" ");
+  const dateArray = dateStringArray
+    .slice(0, -2)
+    .slice(1, dateStringArray.length);
+
+  const convertedDate =
+    dateArray[0] &&
+    dateArray[1] &&
+    dateArray[2] &&
+    new Date(
+      `${dateArray[0]} ${dateArray[1]}, ${year} ${dateArray[2]}`
+    ).toISOString();
+
+  if (typeof convertedDate === "string") return convertedDate;
+  else return "Error! Something is wrong!";
+}
