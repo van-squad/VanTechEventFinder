@@ -5,15 +5,17 @@ import { useStyles } from "./styles";
 import { IconMapPin } from "@tabler/icons-react";
 import { Button } from "~/app/components";
 import { type EventInterface } from "../GoogleMaps";
+import { useSession } from "next-auth/react";
 
 interface EventCardProps {
   event: EventInterface;
-  onClick?: (event: EventInterface) => void;
+  onClick: (event: EventInterface) => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
+  const { data: session } = useSession();
 
   return (
     <div className={classes.card}>
@@ -51,7 +53,14 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             <Button name="View Details" mt={15} buttonType="secondary"></Button>
           </Link>
         )}
-        <button>ADD</button>
+        {session && (
+          <Button
+            name="ADD"
+            mt={4}
+            buttonType="primary"
+            onClick={() => onClick(event)}
+          ></Button>
+        )}
       </Flex>
     </div>
   );

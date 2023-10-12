@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useMantineColorScheme, Image, Text } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
@@ -16,8 +16,8 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-// import { trpc } from "~/providers";
-// import { useSession } from "next-auth/react";
+import { trpc } from "~/providers";
+import { useSession } from "next-auth/react";
 
 export interface EventInterface {
   id: string;
@@ -56,7 +56,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
 
   const [infoWindowID, setInfoWindowID] = useState<string | null>(null);
   const [currentMarker, setCurrentMarker] = useState<JSX.Element | null>(null);
-  const [markers, setMarkers] = useState<JSX.Element[] | null>(null); // Initialize as an empty array
+  const [markers, setMarkers] = useState<JSX.Element[]>([]); // Initialize as an empty array
 
   const Loadings = (
     <div className={classes.gifWrapper}>
@@ -74,21 +74,23 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       </Text>
     </div>
   );
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
+  console.log("session: ", session);
 
-  // const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
-  // const handleAddFavEvent: (event: EventInterface) => void = useCallback(
-  //   (event) => {
-  //     mutate({
-  //       id: event.id,
-  //       userId: session?.user.id as string,
-  //       // TODO: Need to fix type error
-  //       // date: event.dateTime,
-  //     });
-  //   },
-  //   [mutate, session?.user.id]
-  // );
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
+    (event) => {
+      mutate({
+        id: event.id,
+        userId: session?.user.id as string,
+        // TODO: Need to fix type error
+        // date: event.dateTime,
+      });
+    },
+    [mutate, session?.user.id]
+  );
 
   useEffect(() => {
     const fetchMap = async () => {
@@ -116,7 +118,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
 
   useEffect(() => {
     if (!loading && !error && result && result.length > 0) {
-      const markerElements = result.map((event) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const markerElements = result?.map((event) => {
         return (
           event?.venue?.lat &&
           event?.venue?.lng && (
@@ -133,7 +136,10 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
             >
               {infoWindowID === event.id && (
                 <InfoWindow onCloseClick={() => setInfoWindowID(null)}>
-                  <EventCard event={event} />
+                  <EventCard
+                    event={event}
+                    onClick={() => handleAddFavEvent(event)}
+                  />
                 </InfoWindow>
               )}
             </Marker>
