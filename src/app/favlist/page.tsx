@@ -5,7 +5,7 @@ import { trpc } from "~/providers";
 import { useSession } from "next-auth/react";
 import { useStyles } from "./styles";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const FavPage = () => {
   const { classes } = useStyles();
@@ -13,26 +13,47 @@ const FavPage = () => {
   const userId =
     session !== undefined
       ? (session?.user.id as string)
-      : "clmy48rdy0006d7cs9d99rgho";
+      : "clnmccmc10000d7yggv9xdolo";
   const favEvents = trpc.favoriteEvents.getFavorites.useQuery({
     userId,
   });
-  // status !== "loading" && console.log(session, status);
+
+  const { mutate } = trpc.favoriteEvents.deleteFavorite.useMutation();
+
+  const handleDeleteFavEvent: (id: string) => void = useCallback(
+    (id) => {
+      mutate({
+        id,
+      });
+    },
+    [mutate]
+  );
+
   useEffect(() => {
     console.log("session: ", session);
     if (!session) redirect("/login");
   }, [session]);
+
   if (favEvents.isFetching) {
     return <div className={classes.container}>Loading...</div>;
   }
   return (
     <div className={classes.container}>
-      <Text fz="lg" fw={700} mb={20}>
-        Your Favorite Tech Events
-      </Text>
       {(favEvents.data === undefined || favEvents.data.length === 0) && (
         <Text>No fav events found.</Text>
       )}
+      <Text fz="lg" fw={700} mb={20}>
+        Your Favorite Tech Events
+      </Text>
+      {favEvents.data?.map((d) => {
+        return (
+          <div key={d.id}>
+            <p>{d.id}</p>
+            <p>{d.userId}</p>
+            <button onClick={() => handleDeleteFavEvent(d.id)}>Delete</button>
+          </div>
+        );
+      })}
       {/* <Text>{data?.greeting}</Text> */}
       {/* <Card
         title="Coffee.js"
