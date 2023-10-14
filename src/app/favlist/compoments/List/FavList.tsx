@@ -48,8 +48,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
     return <div className={classes.container}>Loading...</div>;
 
   return (
-    <div className={classes.container}>
-      <Text></Text>
+    <div>
       <Text fz="lg" fw={700} mb={20}>
         Your Favorite Tech Events
       </Text>
@@ -64,7 +63,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
             description={event.description}
             imageUrl={`${event.imageUrl}${event.imageId}/676x380.webp`}
             website={event.eventUrl}
-            onClick={() => handleDeleteFavEvent(event.id)}
+            onClick={handleDeleteFavEvent}
           />
         );
       })}

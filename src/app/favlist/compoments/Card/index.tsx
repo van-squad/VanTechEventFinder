@@ -1,4 +1,3 @@
-"use client";
 import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
 import Link from "next/link";

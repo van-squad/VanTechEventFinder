@@ -23,12 +23,11 @@ const FavPage = () => {
   });
 
   useEffect(() => {
-    console.log("session: ", session);
     if (!session) redirect("/login");
   }, [session]);
 
   if (favEvents.isFetching) {
-    return <div>Loading...</div>;
+    return <div className={classes.container}>Loading...</div>;
   }
   return (
     <div className={classes.container}>
