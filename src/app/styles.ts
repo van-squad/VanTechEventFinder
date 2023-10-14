@@ -58,6 +58,7 @@ export const useStyles = createStyles((theme) => ({
     transform: "rotate(1deg)",
   },
   flexContainer: {
+    paddingTop: "2%",
     display: "flex",
     height: "100%",
     flexDirection: "column",
@@ -76,5 +77,20 @@ export const useStyles = createStyles((theme) => ({
     marginBottom: rem(20),
     maxWidth: rem(380),
     textAlign: "center",
+  },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    button: {
+      margin: "0  0.5rem",
+      width: rem(220),
+      height: rem(50),
+      [`@media (max-width: 768px)`]: {
+        margin: "0.3rem 0",
+      },
+    },
+    [`@media (max-width: 768px)`]: {
+      flexDirection: "column",
+    },
   },
 }));
