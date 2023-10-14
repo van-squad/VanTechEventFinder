@@ -1,8 +1,9 @@
 import { Text } from "@mantine/core";
 import { useStyles } from "../../styles";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Card } from "../Card";
 import type { EventInterface } from "~/app/map/components/GoogleMaps";
+import { trpc } from "~/providers";
 
 interface FavLisrtProps {
   eventIds: Array<string>;
@@ -11,6 +12,17 @@ interface FavLisrtProps {
 const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
   const [eventArr, setEventArr] = useState<EventInterface[]>([]);
   const { classes } = useStyles();
+
+  const { mutate } = trpc.favoriteEvents.deleteFavorite.useMutation();
+
+  const handleDeleteFavEvent: (id: string) => void = useCallback(
+    (id) => {
+      mutate({
+        id,
+      });
+    },
+    [mutate]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +57,14 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
         return (
           <Card
             key={event.id}
+            id={event.id}
             title={event.title}
             date={event.dateTime}
             location={event?.venue?.name ? event.venue.name : ""}
             description={event.description}
             imageUrl={`${event.imageUrl}${event.imageId}/676x380.webp`}
             website={event.eventUrl}
-            event={event}
+            onClick={() => handleDeleteFavEvent(event.id)}
           />
         );
       })}

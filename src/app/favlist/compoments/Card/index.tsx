@@ -3,29 +3,33 @@ import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
 import Link from "next/link";
 import Image from "next/image";
-import type { EventInterface } from "~/app/map/components/GoogleMaps";
+import { Button } from "~/app/components";
+import { useSession } from "next-auth/react";
 
 type CardProps = {
+  id: string;
   title: string;
   date: string;
   location: string;
   description: string;
   imageUrl: string;
   website: string;
-  event: EventInterface;
+  onClick: (id: string) => void;
 };
 
 export const Card: React.FC<CardProps> = ({
+  id,
   title,
   date,
   location,
   description,
-  // imageUrl,
+  imageUrl,
   website,
-  event,
+  onClick,
 }) => {
   const { classes } = useStyles();
-  console.log("images: ", event);
+  const { data: session } = useSession();
+
   return (
     <div className={classes.favCards}>
       <div className={classes.favCardLayout}>
@@ -40,11 +44,7 @@ export const Card: React.FC<CardProps> = ({
           </div>
 
           <Image
-            src={
-              event.imageId && event.imageUrl
-                ? `${event.imageUrl}${event.imageId}/676x380.webp`
-                : `${event.imageUrl}${event.imageId}/676x380.webp`
-            }
+            src={imageUrl}
             alt={`image of ${title}`}
             width={500}
             height={500}
@@ -75,6 +75,14 @@ export const Card: React.FC<CardProps> = ({
               Website
             </Link>
           </Text>
+          {session && (
+            <Button
+              name="DELETE"
+              mt={4}
+              buttonType="primary"
+              onClick={() => onClick(id)}
+            ></Button>
+          )}
         </div>
       </div>
     </div>
