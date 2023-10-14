@@ -96,8 +96,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       void fetchMap();
     }
   }, [colorScheme, setMapLoaded, loading, error, result]);
- 
-const [totalEvents, setTotalEvents] = useState(0);
+
+  const [totalEvents, setTotalEvents] = useState(0);
   useEffect(() => {
     if (!loading && !error && result) {
       if (result.length > 0) {
@@ -130,21 +130,19 @@ const [totalEvents, setTotalEvents] = useState(0);
           );
         });
         setMarkers(markerElements as JSX.Element[]);
-      }else{
-setEvents(false);
-setNoEvents(true);
+      } else {
+        setEvents(false);
+        setNoEvents(true);
       }
     }
-   
   }, [loading, error, result, infoWindowID]);
 
+  const [noEvents, setNoEvents] = useState(false);
+  const [events, setEvents] = useState(false);
 
- const [noEvents, setNoEvents] = useState(false);
- const [events, setEvents] = useState(false);
-
- const toggleCard = () => {
-   setNoEvents(false);
- };
+  const toggleCard = () => {
+    setNoEvents(false);
+  };
 
   return (
     <div>
