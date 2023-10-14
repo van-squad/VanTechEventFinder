@@ -21,7 +21,6 @@ export const favoriteEventsRouter = router({
           message: "Failed to get fav events",
         });
       }
-      console.log({ favEvents });
       return favEvents;
     }),
   addFavorite: publicProcedure

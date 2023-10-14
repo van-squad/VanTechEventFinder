@@ -3,6 +3,7 @@ import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
 import Link from "next/link";
 import Image from "next/image";
+import type { EventInterface } from "~/app/map/components/GoogleMaps";
 
 type CardProps = {
   title: string;
@@ -11,6 +12,7 @@ type CardProps = {
   description: string;
   imageUrl: string;
   website: string;
+  event: EventInterface;
 };
 
 export const Card: React.FC<CardProps> = ({
@@ -18,10 +20,12 @@ export const Card: React.FC<CardProps> = ({
   date,
   location,
   description,
-  imageUrl,
+  // imageUrl,
   website,
+  event,
 }) => {
   const { classes } = useStyles();
+  console.log("images: ", event);
   return (
     <div className={classes.favCards}>
       <div className={classes.favCardLayout}>
@@ -36,9 +40,13 @@ export const Card: React.FC<CardProps> = ({
           </div>
 
           <Image
-            src={imageUrl}
+            src={
+              event.imageId && event.imageUrl
+                ? `${event.imageUrl}${event.imageId}/676x380.webp`
+                : `${event.imageUrl}${event.imageId}/676x380.webp`
+            }
             alt={`image of ${title}`}
-            width = {500}
+            width={500}
             height={500}
             style={{
               width: "100%",
@@ -54,7 +62,9 @@ export const Card: React.FC<CardProps> = ({
               {location}
             </a>
           </Text>
-          <Text fz="xs">{description}</Text>
+          <Text fz="xs" className={classes.description}>
+            {description}
+          </Text>
 
           <Text>
             <Link

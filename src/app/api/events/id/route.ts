@@ -33,6 +33,7 @@ export async function GET(req: Request) {
         description: event.description,
         venue: event.venue,
         imageUrl: event.image.baseUrl,
+        imageId: event.image.id,
         dateTime: convertDate(event.dateTime),
       };
       return NextResponse.json(result, { status: 200 });
