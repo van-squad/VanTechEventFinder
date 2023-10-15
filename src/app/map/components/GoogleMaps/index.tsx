@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useMantineColorScheme, Image, Text } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
 import { useStyles } from "./styles";
-import { env } from "~/env.mjs";
+// import { env } from "~/env.mjs";
 
 import { type ModifiedResult } from "~/app/api/events/all/route";
 import useFetchEvent from "~/hooks/useFetchEvent";
@@ -16,6 +16,9 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
+import { trpc } from "~/providers";
+import { useSession } from "next-auth/react";
+import { convertLocaleTimeString } from "~/utils/date-converter";
 
 export interface EventInterface {
   id: string;
@@ -43,7 +46,7 @@ interface GoogleMapsProps {
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
-  const googleAPiKey = env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
+  const googleAPiKey = "AIzaSyCtX9hYFg7SLKTvB_tC1dopbk86g1wGD7E";
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
   const [date, setDate] = useState<Date | null>(new Date(Date.now()));
@@ -54,7 +57,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
 
   const [infoWindowID, setInfoWindowID] = useState<string | null>(null);
   const [currentMarker, setCurrentMarker] = useState<JSX.Element | null>(null);
-  const [markers, setMarkers] = useState<JSX.Element[] | null>(null); // Initialize as an empty array
+  const [markers, setMarkers] = useState<JSX.Element[]>([]); // Initialize as an empty array
 
   const Loadings = (
     <div className={classes.gifWrapper}>
@@ -71,6 +74,23 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
         near you ...
       </Text>
     </div>
+  );
+  const { data: session } = useSession();
+
+  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
+    (event) => {
+      const convertedDate = convertLocaleTimeString(event.dateTime);
+
+      mutate({
+        id: event.id,
+        userId: session?.user.id as string,
+        date: convertedDate,
+      });
+    },
+    [mutate, session?.user.id]
   );
 
   useEffect(() => {
@@ -99,7 +119,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
 
   useEffect(() => {
     if (!loading && !error && result && result.length > 0) {
-      const markerElements = result.map((event) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const markerElements = result?.map((event) => {
         return (
           event?.venue?.lat &&
           event?.venue?.lng && (
@@ -116,7 +137,10 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
             >
               {infoWindowID === event.id && (
                 <InfoWindow onCloseClick={() => setInfoWindowID(null)}>
-                  <EventCard event={event} />
+                  <EventCard
+                    event={event}
+                    onClick={() => handleAddFavEvent(event)}
+                  />
                 </InfoWindow>
               )}
             </Marker>
@@ -126,7 +150,6 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       setMarkers(markerElements as JSX.Element[]);
     }
   }, [loading, error, result, infoWindowID]);
-
 
   return (
     <div>

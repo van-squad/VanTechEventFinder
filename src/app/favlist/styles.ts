@@ -5,6 +5,6 @@ export const useStyles = createStyles(() => ({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    paddingTop: "10%",
+    paddingTop: "5%",
   },
 }));

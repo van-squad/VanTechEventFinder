@@ -1,4 +1,3 @@
-
 module.exports = {
   images: {
     remotePatterns: [
@@ -6,6 +5,10 @@ module.exports = {
         protocol: "https",
         hostname: "secure.meetupstatic.com",
       },
+      {
+        protocol: "https",
+        hostname: "secure-content.meetupstatic.com",
+      },
     ],
-  }
+  },
 };

@@ -1,27 +1,34 @@
-"use client";
 import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "~/app/components";
+import { useSession } from "next-auth/react";
 
 type CardProps = {
+  id: string;
   title: string;
   date: string;
   location: string;
   description: string;
   imageUrl: string;
   website: string;
+  onClick: (id: string) => void;
 };
 
 export const Card: React.FC<CardProps> = ({
+  id,
   title,
   date,
   location,
   description,
   imageUrl,
   website,
+  onClick,
 }) => {
   const { classes } = useStyles();
+  const { data: session } = useSession();
+
   return (
     <div className={classes.favCards}>
       <div className={classes.favCardLayout}>
@@ -38,7 +45,7 @@ export const Card: React.FC<CardProps> = ({
           <Image
             src={imageUrl}
             alt={`image of ${title}`}
-            width = {500}
+            width={500}
             height={500}
             style={{
               width: "100%",
@@ -54,7 +61,9 @@ export const Card: React.FC<CardProps> = ({
               {location}
             </a>
           </Text>
-          <Text fz="xs">{description}</Text>
+          <Text fz="xs" className={classes.description}>
+            {description}
+          </Text>
 
           <Text>
             <Link
@@ -65,6 +74,14 @@ export const Card: React.FC<CardProps> = ({
               Website
             </Link>
           </Text>
+          {session && (
+            <Button
+              name="DELETE"
+              mt={4}
+              buttonType="primary"
+              onClick={() => onClick(id)}
+            ></Button>
+          )}
         </div>
       </div>
     </div>
