@@ -1,5 +1,4 @@
 import { type Metadata } from "next";
-import { TrpcProvider } from "~/providers";
 
 export const metadata: Metadata = {
   title: "Your TechMeet Favorites: Curate Your Vancouver Event Journey",
@@ -8,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const FavListLayout = ({ children }: { children: React.ReactNode }) => {
-  return <TrpcProvider>{children}</TrpcProvider>;
+  return <div>{children}</div>;
 };
 
 export default FavListLayout;
