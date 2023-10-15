@@ -35,7 +35,6 @@ export const useStyles = createStyles((theme) => ({
       marginTop: "5px",
       marginLeft: "10px",
       background: "rgba(255,255,255,0.5)",
-      zIndex: 10,
     },
   },
 
