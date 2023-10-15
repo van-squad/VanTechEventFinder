@@ -62,4 +62,8 @@ export const useStyles = createStyles((theme) => ({
       width: "50%",
     },
   },
+  description: {
+    maxHeight: "100px",
+    overflow: "scroll",
+  },
 }));

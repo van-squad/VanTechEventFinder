@@ -67,10 +67,6 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   secret: env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-    maxAge: 15 * 60,
-  },
   callbacks: {
     jwt({ token, account }) {
       // Persist the OAuth access_token and or the user id to the token right after signin
@@ -79,6 +75,23 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    session({ session, token }) {
+      // session.expires = 15 * 60 * 60
+      const updatedSession = {
+        ...session,
+        accessToken: token.accessToken,
+      };
+      updatedSession.user.id = token.sub as string;
+      return updatedSession;
+    },
+  },
+  jwt: {
+    maxAge: 60 * 60 * 24 * 90,
+  },
+  session: {
+    // strategy: "jwt",
+    maxAge: 60 * 60 * 24 * 90,
+    updateAge: 15 * 60,
   },
 };
 

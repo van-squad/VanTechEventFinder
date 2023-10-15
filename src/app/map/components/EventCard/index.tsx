@@ -4,15 +4,18 @@ import { Container, Flex, Text, Image, useMantineTheme } from "@mantine/core";
 import { useStyles } from "./styles";
 import { IconMapPin } from "@tabler/icons-react";
 import { Button } from "~/app/components";
-import { type ModifiedResult } from "~/app/api/events/all/route";
+import { type EventInterface } from "../GoogleMaps";
+import { useSession } from "next-auth/react";
 
 interface EventCardProps {
-  event: ModifiedResult;
+  event: EventInterface;
+  onClick: (event: EventInterface) => void;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
+  const { data: session } = useSession();
 
   return (
     <div className={classes.card}>
@@ -37,7 +40,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           <Text color="#999" lh={1}>
             <Flex align="center">
               <IconMapPin size="1rem" stroke={1.5} />
-              {event.venue.address}
+              {event?.venue?.address}
             </Flex>
           </Text>
           <Text mt={10} lineClamp={3}>
@@ -49,6 +52,14 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           <Link target="_blank" href={event.eventUrl}>
             <Button name="View Details" mt={15} buttonType="secondary"></Button>
           </Link>
+        )}
+        {session && (
+          <Button
+            name="ADD"
+            mt={4}
+            buttonType="primary"
+            onClick={() => onClick(event)}
+          ></Button>
         )}
       </Flex>
     </div>
