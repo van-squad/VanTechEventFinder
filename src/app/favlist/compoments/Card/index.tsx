@@ -38,7 +38,7 @@ export const Card: React.FC<CardProps> = ({
           <Image
             src={imageUrl}
             alt={`image of ${title}`}
-            width = {500}
+            width={500}
             height={500}
             style={{
               width: "100%",
