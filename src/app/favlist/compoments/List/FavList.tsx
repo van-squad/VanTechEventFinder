@@ -1,5 +1,4 @@
 import { Text } from "@mantine/core";
-import { useStyles } from "../../styles";
 import { useEffect, useState, useCallback } from "react";
 import { trpc } from "~/providers";
 import EventCard from "~/app/components/Card";
@@ -11,7 +10,6 @@ interface FavLisrtProps {
 
 const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
   const [eventArr, setEventArr] = useState<ModifiedResult[]>([]);
-  const { classes } = useStyles();
 
   const { mutate } = trpc.favoriteEvents.deleteFavorite.useMutation();
 
@@ -44,8 +42,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
     void fetchData();
   }, [eventIds]);
 
-  if (eventArr.length === 0)
-    return <div className={classes.container}>Loading...</div>;
+  if (eventArr.length === 0) return <div>Loading...</div>;
 
   return (
     <div>
@@ -57,6 +54,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
           <EventCard
             key={event.id}
             event={event}
+            cardName={"DELETE"}
             onClick={handleDeleteFavEvent}
           />
         );
