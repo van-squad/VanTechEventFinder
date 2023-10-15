@@ -7,12 +7,15 @@ import { type ModifiedResult } from "~/app/api/events/all/route";
 import { useStyles } from "./styles";
 import { useSession } from "next-auth/react";
 
-interface EventItemProps {
+type CardNameType = "ADD" | "DELETE";
+
+interface CardProps {
   event: ModifiedResult;
+  cardName: CardNameType;
   onClick: (event: ModifiedResult) => void;
 }
 
-const Card: React.FC<EventItemProps> = ({ event, onClick }) => {
+const Card: React.FC<CardProps> = ({ event, cardName, onClick }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const { data: session } = useSession();
@@ -55,9 +58,9 @@ const Card: React.FC<EventItemProps> = ({ event, onClick }) => {
           )}
           {session && (
             <Button
-              name="DELETE"
+              name={cardName}
               mt={4}
-              buttonType="primary"
+              buttonType={cardName === "ADD" ? "secondary" : "primary"}
               onClick={() => onClick(event)}
             ></Button>
           )}
