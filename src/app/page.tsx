@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Text } from "@mantine/core";
 import { Button } from "~/app/components";
+import { BUTTON_VARIANTS } from "~/app/components/Button";
 import { useStyles } from "./styles";
 
 const HomePage = () => {
@@ -34,7 +35,21 @@ const HomePage = () => {
                 happening in Vancouver? This app displays all upcoming tech
                 events in Vancouver, and you can search for events by date.
               </Text>
-              <Button name="Find Events" href="/map" buttonType="tertiary" />
+              <Text fw={500} mb={20} maw={380} ta="center">
+                Are you looking for
+              </Text>
+              <div className={classes.buttons}>
+                <Button
+                  name="In-person Events"
+                  href="/map"
+                  buttonType={BUTTON_VARIANTS.TERTIARY}
+                />
+                <Button
+                  name="In-person & Online Events"
+                  href="#"
+                  buttonType={BUTTON_VARIANTS.PRIMARY}
+                />
+              </div>
             </div>
           </div>
         </div>
