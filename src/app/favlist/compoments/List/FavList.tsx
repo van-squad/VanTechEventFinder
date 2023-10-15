@@ -1,24 +1,24 @@
 import { Text } from "@mantine/core";
 import { useStyles } from "../../styles";
 import { useEffect, useState, useCallback } from "react";
-import { Card } from "../Card";
-import type { EventInterface } from "~/app/map/components/GoogleMaps";
 import { trpc } from "~/providers";
+import EventCard from "~/app/components/Card";
+import type { ModifiedResult } from "~/app/api/events/all/route";
 
 interface FavLisrtProps {
   eventIds: Array<string>;
 }
 
 const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
-  const [eventArr, setEventArr] = useState<EventInterface[]>([]);
+  const [eventArr, setEventArr] = useState<ModifiedResult[]>([]);
   const { classes } = useStyles();
 
   const { mutate } = trpc.favoriteEvents.deleteFavorite.useMutation();
 
-  const handleDeleteFavEvent: (id: string) => void = useCallback(
-    (id) => {
+  const handleDeleteFavEvent: (event: ModifiedResult) => void = useCallback(
+    (event) => {
       mutate({
-        id,
+        id: event.id,
       });
     },
     [mutate]
@@ -26,11 +26,11 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const arr: EventInterface[] = [];
+      const arr: ModifiedResult[] = [];
       try {
         for await (const id of eventIds) {
           const response = await fetch(`/api/events/id?id=${id}`);
-          const data = (await response.json()) as EventInterface;
+          const data = (await response.json()) as ModifiedResult;
           arr.push(data);
         }
       } catch (error) {
@@ -54,15 +54,9 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
       </Text>
       {eventArr.map((event) => {
         return (
-          <Card
+          <EventCard
             key={event.id}
-            id={event.id}
-            title={event.title}
-            date={event.dateTime}
-            location={event?.venue?.name ? event.venue.name : ""}
-            description={event.description}
-            imageUrl={`${event.imageUrl}${event.imageId}/676x380.webp`}
-            website={event.eventUrl}
+            event={event}
             onClick={handleDeleteFavEvent}
           />
         );
