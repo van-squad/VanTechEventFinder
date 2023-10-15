@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { trpc } from "~/providers";
 import EventCard from "~/app/components/Card";
 import type { ModifiedResult } from "~/app/api/events/all/route";
+import { useStyles } from "./styles";
 
 interface FavLisrtProps {
   eventIds: Array<string>;
@@ -10,6 +11,7 @@ interface FavLisrtProps {
 
 const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
   const [eventArr, setEventArr] = useState<ModifiedResult[]>([]);
+  const { classes } = useStyles();
 
   const { mutate } = trpc.favoriteEvents.deleteFavorite.useMutation();
 
@@ -46,7 +48,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
 
   return (
     <div>
-      <Text fz="lg" fw={700} mb={20}>
+      <Text fz="lg" fw={700} mb={20} className={classes.title}>
         Your Favorite Tech Events
       </Text>
       {eventArr.map((event) => {
