@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { useMantineColorScheme, Image, Text } from "@mantine/core";
+import { useMantineColorScheme, Image, Text, Paper } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
 import Calendar from "../Calendar";
 import EventCard from "../EventCard";
@@ -116,9 +116,15 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       void fetchMap();
     }
   }, [colorScheme, setMapLoaded, loading, error, result]);
+ const [totalEvents, setTotalEvents] = useState(0);
 
   useEffect(() => {
-    if (!loading && !error && result && result.length > 0) {
+    if (!loading && !error && result) {
+        if (result.length > 0) {
+        setNoEvents(false);
+        setEvents(true);
+        setTotalEvents(result.length);
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const markerElements = result?.map((event) => {
         return (
@@ -148,8 +154,21 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
         );
       });
       setMarkers(markerElements as JSX.Element[]);
+    }else {
+        setEvents(false);
+        setNoEvents(true);
+      }
     }
   }, [loading, error, result, infoWindowID]);
+
+    const [noEvents, setNoEvents] = useState(false);
+    const [events, setEvents] = useState(false);
+
+    const toggleCard = () => {
+      setNoEvents(false);
+    };
+
+
 
   return (
     <div>
@@ -170,7 +189,21 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
           {markers}
         </GoogleMap>
       </LoadScript>
-
+      {noEvents && !loading ? (
+        <div className={classes.overlay} onClick={toggleCard}>
+          <Paper shadow="xs" p="xl" className={classes.popup}>
+            <Text>There are no events on {date?.toDateString()}</Text>
+          </Paper>
+        </div>
+      ) : events && !loading ? (
+        <Paper shadow="xs" p="xl" className={classes.eventsPopup}>
+          <Text>
+            {totalEvents === 1
+              ? `There is 1 tech event!`
+              : `There are ${totalEvents} tech events!`}
+          </Text>
+        </Paper>
+      ) : null}
       <div className={classes.container}>
         <Calendar date={date} setDate={setDate} />
       </div>
