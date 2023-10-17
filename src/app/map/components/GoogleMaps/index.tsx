@@ -122,7 +122,6 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
     if (!loading && !error && result) {
         if (result.length > 0) {
         setNoEvents(false);
-        setEvents(true);
         setTotalEvents(result.length);
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -155,14 +154,12 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       });
       setMarkers(markerElements as JSX.Element[]);
     }else {
-        setEvents(false);
         setNoEvents(true);
       }
     }
   }, [loading, error, result, infoWindowID]);
 
     const [noEvents, setNoEvents] = useState(false);
-    const [events, setEvents] = useState(false);
 
     const toggleCard = () => {
       setNoEvents(false);
@@ -195,7 +192,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
             <Text>There are no events on {date?.toDateString()}</Text>
           </Paper>
         </div>
-      ) : events && !loading ? (
+      ) : (
         <Paper shadow="xs" p="xl" className={classes.eventsPopup}>
           <Text>
             {totalEvents === 1
@@ -203,7 +200,7 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
               : `There are ${totalEvents} tech events!`}
           </Text>
         </Paper>
-      ) : null}
+      )}
       <div className={classes.container}>
         <Calendar date={date} setDate={setDate} />
       </div>
