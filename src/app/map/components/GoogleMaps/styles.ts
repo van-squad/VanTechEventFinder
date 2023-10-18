@@ -20,8 +20,8 @@ export const useStyles = createStyles((theme) => ({
   },
   container: {
     position: "absolute",
-    top: "10px",
-    left: "10px",
+    top: "15%",
+    left: "3%",
     zIndex: 20,
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
@@ -52,4 +52,28 @@ export const useStyles = createStyles((theme) => ({
     flexDirection: "column",
     padding: "2rem 3rem",
   },
+  overlay: {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  popup: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    padding: "2rem 3rem",
+  },
+  eventsPopup: {
+    position: "absolute",
+    top: "60%",
+    left: "3%",
+  }
 }));
