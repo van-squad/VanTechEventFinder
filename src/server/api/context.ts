@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type * as trpc from "@trpc/server";
 import type * as trpcNext from "@trpc/server/adapters/next";
-import { getServerSession } from "next-auth";
+import { getServerSession, type Session } from "next-auth";
 import type { getUser, User } from "~/server-rsc/getUser";
 import { authOptions } from "~/server/auth";
 
@@ -9,6 +9,7 @@ import { authOptions } from "~/server/auth";
 interface CreateContextOptions {
   user: User | null;
   rsc: boolean;
+  session: Session;
 }
 
 /**
@@ -18,6 +19,7 @@ interface CreateContextOptions {
 export function createContextInner(opts: CreateContextOptions) {
   return {
     user: opts.user,
+    session: opts.session,
   };
 }
 
