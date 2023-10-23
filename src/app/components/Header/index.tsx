@@ -21,6 +21,12 @@ import { signOut } from "next-auth/react";
 const LINKS = [
   { link: "/map", label: "Map", showLoginNav: true, showLogoutNav: true },
   {
+    link: "/eventlist",
+    label: "Event List",
+    showLoginNav: true,
+    showLogoutNav: true,
+  },
+  {
     link: "/favlist",
     label: "Fav Events",
     showLoginNav: true,

@@ -1,4 +1,4 @@
-import type { ModifiedResult } from "../api/events/all/route";
+import type { ModifiedResult } from "../../api/events/all/route";
 
 export const dummyData: ModifiedResult[] = [
   {

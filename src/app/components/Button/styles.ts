@@ -12,7 +12,7 @@ export const useStyles = createStyles((theme) => ({
     },
   },
   secondary: {
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     color: theme.colors.red[0],
     border: `1px solid ${theme.colors.red[0]}`,
 

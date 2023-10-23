@@ -8,7 +8,8 @@ type FetchEventResponse<T> = {
 
 const useFetchEvent = <T>(
   id: string | null,
-  date: Date | null
+  date: Date | null,
+  isInPersonOnly = true
 ): FetchEventResponse<T> => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +26,10 @@ const useFetchEvent = <T>(
         } else if (dateString) {
           const response = await fetch("/api/events/all", {
             method: "POST",
-            body: JSON.stringify({ date: dateString }),
+            body: JSON.stringify({
+              date: dateString,
+              isInPersonOnly: isInPersonOnly,
+            }),
           });
           const data = (await response.json()) as T;
           setFetchedData(data);
@@ -41,7 +45,7 @@ const useFetchEvent = <T>(
     };
 
     void fetchData();
-  }, [id, dateString]);
+  }, [id, dateString, isInPersonOnly]);
 
   return { loading, error, result: fetchedData };
 };

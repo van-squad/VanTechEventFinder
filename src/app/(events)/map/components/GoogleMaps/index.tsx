@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useMantineColorScheme, Image, Text, Paper } from "@mantine/core";
 import { mapTheme, loader } from "~/utils";
-import Calendar from "../Calendar";
+import Calendar from "../../../components/Calendar";
 import EventCard from "../EventCard";
 import { useStyles } from "./styles";
 // import { env } from "~/env.mjs";
@@ -52,7 +52,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const { loading, error, result } = useFetchEvent<ModifiedResult[]>(
     null,
-    date
+    date,
+    true
   );
 
   const [infoWindowID, setInfoWindowID] = useState<string | null>(null);
@@ -116,56 +117,54 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       void fetchMap();
     }
   }, [colorScheme, setMapLoaded, loading, error, result]);
- const [totalEvents, setTotalEvents] = useState(0);
+  const [totalEvents, setTotalEvents] = useState(0);
 
   useEffect(() => {
     if (!loading && !error && result) {
-        if (result.length > 0) {
+      if (result.length > 0) {
         setNoEvents(false);
         setTotalEvents(result.length);
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const markerElements = result?.map((event) => {
-        return (
-          event?.venue?.lat &&
-          event?.venue?.lng && (
-            <Marker
-              key={event.id}
-              position={{
-                lat: event.venue.lat,
-                lng: event.venue.lng,
-              }}
-              onClick={() => {
-                setInfoWindowID(event.id);
-              }}
-              icon={{ url: "/images/marker.svg" }}
-            >
-              {infoWindowID === event.id && (
-                <InfoWindow onCloseClick={() => setInfoWindowID(null)}>
-                  <EventCard
-                    event={event}
-                    onClick={() => handleAddFavEvent(event)}
-                  />
-                </InfoWindow>
-              )}
-            </Marker>
-          )
-        );
-      });
-      setMarkers(markerElements as JSX.Element[]);
-    }else {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const markerElements = result?.map((event) => {
+          return (
+            event?.venue?.lat &&
+            event?.venue?.lng && (
+              <Marker
+                key={event.id}
+                position={{
+                  lat: event.venue.lat,
+                  lng: event.venue.lng,
+                }}
+                onClick={() => {
+                  setInfoWindowID(event.id);
+                }}
+                icon={{ url: "/images/marker.svg" }}
+              >
+                {infoWindowID === event.id && (
+                  <InfoWindow onCloseClick={() => setInfoWindowID(null)}>
+                    <EventCard
+                      event={event}
+                      onClick={() => handleAddFavEvent(event)}
+                    />
+                  </InfoWindow>
+                )}
+              </Marker>
+            )
+          );
+        });
+        setMarkers(markerElements as JSX.Element[]);
+      } else {
         setNoEvents(true);
       }
     }
   }, [loading, error, result, infoWindowID]);
 
-    const [noEvents, setNoEvents] = useState(false);
+  const [noEvents, setNoEvents] = useState(false);
 
-    const toggleCard = () => {
-      setNoEvents(false);
-    };
-
-
+  const toggleCard = () => {
+    setNoEvents(false);
+  };
 
   return (
     <div>
