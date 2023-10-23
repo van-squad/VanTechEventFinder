@@ -1,7 +1,7 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { useSession } from "next-auth/react";
 import {
   Paper,
   TextInput,
@@ -9,6 +9,7 @@ import {
   PasswordInput,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { BUTTON_VARIANTS } from "~/app/components/Button";
@@ -16,9 +17,11 @@ import { Button } from "~/app/components";
 import { Container, Frame } from "../components";
 import { useStyles } from "../style";
 import { trpc } from "~/providers";
+import { type User } from "@prisma/client";
 
 const Signup = () => {
-  const { data: session } = useSession();
+  const [userData, setUserData] = useState<User | null>(null);
+  const theme = useMantineTheme();
 
   const form = useForm({
     initialValues: {
@@ -27,6 +30,7 @@ const Signup = () => {
       password: "secret",
       confirmPassword: "sevret",
     },
+    validateInputOnChange: true,
 
     // functions will be used to validate values at corresponding key
     validate: {
@@ -38,10 +42,17 @@ const Signup = () => {
     },
   });
   const { classes } = useStyles();
-  const { mutate } = trpc.auth.signup.useMutation();
+  const { mutate, error } = trpc.auth.signup.useMutation({
+    onSuccess: (data) => {
+      setUserData(data);
+    },
+  });
 
-  if (session) {
-    redirect("/");
+  // To check if there is no input error
+  const isDisabled = Object.keys(form.errors).length !== 0 ? true : false;
+
+  if (userData) {
+    redirect("/login");
   }
 
   return (
@@ -57,15 +68,21 @@ const Signup = () => {
           >
             Sign Up
           </Title>
+          {error && (
+            <Text fw="bold" color={theme.colors.red[0]} mt={3}>
+              {error.message}
+            </Text>
+          )}
           <Box maw={320} mx="auto" style={{ width: "100%" }}>
             <form
-              onSubmit={form.onSubmit((values) =>
+              onSubmit={form.onSubmit((values) => {
+                console.log("run");
                 mutate({
                   name: values.userName,
                   email: values.email,
                   password: values.password,
-                })
-              )}
+                });
+              })}
             >
               <TextInput
                 label="User Name"
@@ -96,6 +113,7 @@ const Signup = () => {
                 buttonType={BUTTON_VARIANTS.PRIMARY}
                 type="submit"
                 mt="sm"
+                disabled={isDisabled}
               />
 
               <Text mt="md">

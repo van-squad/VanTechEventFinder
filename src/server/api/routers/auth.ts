@@ -15,6 +15,7 @@ export const authRouter = router({
     )
     .mutation(async ({ input }) => {
       const { email, password, name } = input;
+      console.log({ email, password, name });
       const isValidEmail = checkEmailValid(email);
       if (!isValidEmail)
         throw new TRPCError({

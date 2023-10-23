@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
@@ -10,6 +11,7 @@ import {
   Checkbox,
   Title,
   Text,
+  useMantineTheme,
 } from "@mantine/core";
 import { BUTTON_VARIANTS } from "~/app/components/Button";
 import { Button } from "~/app/components";
@@ -20,6 +22,8 @@ import { useStyles } from "../style";
 const LogIn = () => {
   const { classes } = useStyles();
   const { data: session } = useSession();
+  const [error, setError] = useState("");
+  const theme = useMantineTheme();
 
   const form = useForm({
     initialValues: {
@@ -27,6 +31,7 @@ const LogIn = () => {
       password: "",
       rememberPassword: false,
     },
+    validateInputOnChange: true,
 
     // functions will be used to validate values at corresponding key
     validate: {
@@ -35,6 +40,9 @@ const LogIn = () => {
         value.length < 1 ? "Please input email address" : null,
     },
   });
+
+  // To check if there is no input error
+  const isDisabled = Object.keys(form.errors).length !== 0 ? true : false;
 
   const handleSubmit = async (values: {
     email: string;
@@ -73,7 +81,9 @@ const LogIn = () => {
         throw Error();
       }
     } catch (error) {
-      console.log(error);
+      if (error) {
+        setError("Failed to login!");
+      }
     }
   };
 
@@ -95,6 +105,11 @@ const LogIn = () => {
             Log In
           </Title>
           <form onSubmit={form.onSubmit((values) => void handleSubmit(values))}>
+            {error && (
+              <Text fw="bold" color={theme.colors.red[0]} mt={3}>
+                {error}
+              </Text>
+            )}
             <TextInput
               label="Email address"
               placeholder="hello@gmail.com"
@@ -122,6 +137,7 @@ const LogIn = () => {
               buttonType={BUTTON_VARIANTS.SECONDARY}
               style={{ marginTop: "5%" }}
               type="submit"
+              disabled={isDisabled}
             />
 
             <Text mt="md">
