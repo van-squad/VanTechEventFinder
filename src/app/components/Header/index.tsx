@@ -49,7 +49,7 @@ const LINKS = [
 
 const Header = () => {
   const activePathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [opened, { toggle }] = useDisclosure(false);
   const { classes, cx } = useStyles();
   const navLinks = session
@@ -87,7 +87,7 @@ const Header = () => {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <Group spacing={5} className={classes.links}>
-            {items}
+            {status !== "loading" && items}
           </Group>
           <ThemeSwitch />
           <Burger
@@ -101,7 +101,7 @@ const Header = () => {
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
             <Paper className={classes.dropdown} style={styles} onClick={toggle}>
-              {items}
+              {status !== "loading" && items}
             </Paper>
           )}
         </Transition>
