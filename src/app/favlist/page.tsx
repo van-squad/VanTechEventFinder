@@ -18,9 +18,12 @@ const FavPage = () => {
     userId,
   });
 
-  const eventIds = favEvents.data?.map((event) => {
-    return event.id;
-  });
+  const eventIds = favEvents.data
+    // sort favEvents in the order of timeline
+    ?.sort((a, b) => (a.date > b.date ? 1 : -1))
+    .map((event) => {
+      return event.id;
+    });
 
   useEffect(() => {
     if (!session) redirect("/login");
