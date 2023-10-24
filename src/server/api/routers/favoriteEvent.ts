@@ -13,6 +13,11 @@ export const favoriteEventsRouter = router({
     )
     .query(async ({ input }) => {
       const favEvents = await prisma.favEvent.findMany({
+        orderBy: [
+          {
+            date: "asc",
+          },
+        ],
         where: { userId: input.userId },
       });
       if (!favEvents) {
