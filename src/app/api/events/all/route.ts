@@ -49,7 +49,7 @@ export type ModifiedResult = Omit<Result, "dateTime" | "image"> & {
 };
 
 const FILTER_CONSTANT = {
-  query: "tech",
+  query: "VanJS, Tech, CodeWeekend, 'Tech Nerds', 'ReactJS'",
   // These point at Vancouver
   lat: 49.246292,
   lon: -123.116226,
@@ -67,13 +67,9 @@ export async function POST(req: Request) {
 
     const vancouverTime = moment.tz(dateObject, "America/Vancouver");
 
-    // Get the day of 0:00
-    const startOfDay = vancouverTime.clone().startOf("day");
-    const startOfDayString = startOfDay.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
-
-    // Get the day of 23:59:59
-    const endOfDay = vancouverTime.clone().endOf("day");
-    const endOfDayString = endOfDay.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+    const startOfDayString = vancouverTime.format();
+    vancouverTime.endOf("day");
+    const endOfDayString = vancouverTime.format();
     const variables = {
       filter: {
         ...FILTER_CONSTANT,
