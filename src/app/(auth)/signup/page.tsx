@@ -76,7 +76,6 @@ const Signup = () => {
           <Box maw={320} mx="auto" style={{ width: "100%" }}>
             <form
               onSubmit={form.onSubmit((values) => {
-                console.log("run");
                 mutate({
                   name: values.userName,
                   email: values.email,
