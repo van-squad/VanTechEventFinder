@@ -27,7 +27,9 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => {
           <Text color="#999" lh={1}>
             <Flex align="center">
               <IconMapPin size="1rem" stroke={1.5} />
-              {event.venue.address}
+              {event.venue.name === "Online event"
+                ? event.venue.name
+                : event.venue.address}
             </Flex>
           </Text>
           <Text mt={10} lineClamp={3}>

@@ -58,7 +58,10 @@ const FILTER_CONSTANT = {
 
 export async function POST(req: Request) {
   try {
-    const response = (await req.json()) as { date: string };
+    const response = (await req.json()) as {
+      date: string;
+      isInPersonOnly: boolean;
+    };
 
     if (!("date" in response && typeof response.date === "string")) {
       throw Error("Invalid input!");
@@ -73,6 +76,7 @@ export async function POST(req: Request) {
     const variables = {
       filter: {
         ...FILTER_CONSTANT,
+        ...(response.isInPersonOnly && { eventType: "PHYSICAL" }),
         startDateRange: startOfDayString,
         endDateRange: endOfDayString,
       },
@@ -89,18 +93,16 @@ export async function POST(req: Request) {
     const results: ModifiedResult[] = [];
     if (keywordSearch.count > 0) {
       for (const edge of keywordSearch.edges) {
-        if (edge.node.result.venue && edge.node.result.venue?.address !== "") {
-          results.push({
-            id: edge.node.result.id,
-            title: edge.node.result.title,
-            eventUrl: edge.node.result.eventUrl,
-            description: edge.node.result.description,
-            venue: edge.node.result.venue,
-            imageId: edge.node.result.image.id,
-            imageUrl: edge.node.result.image.baseUrl,
-            dateTime: convertDate(edge.node.result.dateTime),
-          });
-        }
+        results.push({
+          id: edge.node.result.id,
+          title: edge.node.result.title,
+          eventUrl: edge.node.result.eventUrl,
+          description: edge.node.result.description,
+          venue: edge.node.result.venue,
+          imageId: edge.node.result.image.id,
+          imageUrl: edge.node.result.image.baseUrl,
+          dateTime: convertDate(edge.node.result.dateTime),
+        });
       }
     }
     return NextResponse.json(results, { status: 200 });
