@@ -1,10 +1,9 @@
-import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-
+import type { GetServerSidePropsContext } from "next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "~/server/db";
 import { verifyPassword } from "~/utils";
@@ -24,11 +23,6 @@ declare module "next-auth" {
       // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -76,22 +70,17 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     session({ session, token }) {
-      // session.expires = 15 * 60 * 60
-      const updatedSession = {
-        ...session,
-        accessToken: token.accessToken,
-      };
-      updatedSession.user.id = token.sub as string;
-      return updatedSession;
+      session.user.id = token.sub as string;
+      return session;
     },
   },
-  jwt: {
-    maxAge: 60 * 60 * 24 * 90,
-  },
   session: {
-    // strategy: "jwt",
+    strategy: "jwt",
     maxAge: 60 * 60 * 24 * 90,
     updateAge: 15 * 60,
+  },
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60,
   },
 };
 
@@ -103,6 +92,4 @@ export const authOptions: NextAuthOptions = {
 export const getServerAuthSession = (ctx: {
   req: GetServerSidePropsContext["req"];
   res: GetServerSidePropsContext["res"];
-}) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
-};
+}) => getServerSession(ctx.req, ctx.res, authOptions);
