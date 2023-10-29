@@ -10,7 +10,7 @@ interface FavLisrtProps {
 }
 
 const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
-  const [eventArr, setEventArr] = useState<ModifiedResult[]>([]);
+  const [eventArr, setEventArr] = useState<ModifiedResult[] | null>(null);
   const { classes } = useStyles();
 
   const { mutate } = trpc.favoriteEvents.deleteFavorite.useMutation();
@@ -44,23 +44,25 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
     void fetchData();
   }, [eventIds]);
 
-  if (eventArr.length === 0) return <div>Loading...</div>;
+  if (!eventArr) return <div>Loading...</div>;
 
   return (
     <div>
       <Text fz="lg" fw={700} mb={20} className={classes.title}>
         Your Favorite Tech Events
       </Text>
-      {eventArr.map((event) => {
-        return (
-          <EventCard
-            key={event.id}
-            event={event}
-            cardName={"DELETE"}
-            onClick={handleDeleteFavEvent}
-          />
-        );
-      })}
+      {eventArr && eventArr.length === 0 && <Text>No events found</Text>}
+      {eventArr &&
+        eventArr.map((event) => {
+          return (
+            <EventCard
+              key={event.id}
+              event={event}
+              cardName={"DELETE"}
+              onClick={handleDeleteFavEvent}
+            />
+          );
+        })}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import type { GetServerSidePropsContext } from "next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "~/server/db";
 import { verifyPassword } from "~/utils";
@@ -89,7 +88,4 @@ export const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = (ctx: {
-  req: GetServerSidePropsContext["req"];
-  res: GetServerSidePropsContext["res"];
-}) => getServerSession(ctx.req, ctx.res, authOptions);
+export const getServerAuthSession = () => getServerSession(authOptions);
