@@ -6,6 +6,5 @@ export const useStyles = createStyles(() => ({
     alignItems: "center",
     flexDirection: "column",
     paddingTop: "5%",
-    textAlign: "center",
   },
 }));

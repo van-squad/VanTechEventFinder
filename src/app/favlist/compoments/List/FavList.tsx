@@ -48,10 +48,12 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
 
   return (
     <div>
-      <Text fz="lg" fw={700} mb={20} className={classes.title}>
+      <Text fz="lg" fw={700} mb={20} className={classes.text}>
         Your Favorite Tech Events
       </Text>
-      {eventArr && eventArr.length === 0 && <Text>No events found</Text>}
+      {eventArr && eventArr.length === 0 && (
+        <Text className={classes.text}>No events found</Text>
+      )}
       {eventArr &&
         eventArr.map((event) => {
           return (
