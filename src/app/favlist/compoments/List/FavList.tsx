@@ -47,7 +47,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
   if (eventArr.length === 0) return <div>Loading...</div>;
 
   return (
-    <div>
+    <>
       <Text fz="lg" fw={700} mb={20} className={classes.title}>
         Your Favorite Tech Events
       </Text>
@@ -61,7 +61,7 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
           />
         );
       })}
-    </div>
+    </>
   );
 };
 
