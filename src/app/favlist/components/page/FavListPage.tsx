@@ -2,7 +2,7 @@
 import { type Session } from "next-auth";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
-import { useStyles } from "../../favlist/styles";
+import { useStyles } from "../../styles";
 import { trpc } from "~/providers";
 import FavList from "../List/FavList";
 
