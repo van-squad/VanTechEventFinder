@@ -56,6 +56,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
     true
   );
 
+  console.log({ result });
+
   const [infoWindowID, setInfoWindowID] = useState<string | null>(null);
   const [currentMarker, setCurrentMarker] = useState<JSX.Element | null>(null);
   const [markers, setMarkers] = useState<JSX.Element[]>([]); // Initialize as an empty array
