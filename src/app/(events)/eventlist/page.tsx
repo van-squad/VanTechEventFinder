@@ -49,7 +49,7 @@ const EventListPage = () => {
 
    const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const handleAddFavEvent: (event: EventInterface) => void = useCallback(
       (event) => {
         const convertedDate = convertLocaleTimeString(event.dateTime);
