@@ -19,6 +19,8 @@ import {
 import { trpc } from "~/providers";
 import { useSession } from "next-auth/react";
 import { convertLocaleTimeString } from "~/utils/date-converter";
+import { IconCheck } from "@tabler/icons-react";
+import { Notification, rem } from "@mantine/core";
 
 export interface EventInterface {
   id: string;
@@ -46,6 +48,8 @@ interface GoogleMapsProps {
 }
 
 export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
+   const [eventAdded, setEventAdded] = useState(false);
+   const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
   const googleAPiKey = "AIzaSyCtX9hYFg7SLKTvB_tC1dopbk86g1wGD7E";
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
@@ -79,11 +83,16 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   const { data: session } = useSession();
 
   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+      function handleIconClick() {
+        setEventAdded(false);
+      }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const handleAddFavEvent: (event: EventInterface) => void = useCallback(
     (event) => {
       const convertedDate = convertLocaleTimeString(event.dateTime);
+
+       setEventAdded(true);
 
       mutate({
         id: event.id,
@@ -203,6 +212,21 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
       <div className={classes.container}>
         <Calendar date={date} setDate={setDate} />
       </div>
+      {eventAdded && (
+        <div className={classes.overlay}>
+          <Notification
+            style={{ padding: "3rem" }}
+            className={`${classes.notification}`}
+            onClick={handleIconClick}
+            icon={checkIcon}
+            color="teal"
+            title=" The event is added to your favorites list!"
+            closeButtonProps={{
+              color: colorScheme === "dark" ? "gray" : "dark",
+            }}
+          ></Notification>
+        </div>
+      )}
     </div>
   );
 };
