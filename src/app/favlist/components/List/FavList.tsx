@@ -47,25 +47,21 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
   if (!eventArr) return <div>Loading...</div>;
 
   return (
-    <div>
+    <>
       <Text fz="lg" fw={700} mb={20} className={classes.text}>
         Your Favorite Tech Events
       </Text>
-      {eventArr && eventArr.length === 0 && (
-        <Text className={classes.text}>No events found</Text>
-      )}
-      {eventArr &&
-        eventArr.map((event) => {
-          return (
-            <EventCard
-              key={event.id}
-              event={event}
-              cardName={"DELETE"}
-              onClick={handleDeleteFavEvent}
-            />
-          );
-        })}
-    </div>
+      {eventArr.map((event) => {
+        return (
+          <EventCard
+            key={event.id}
+            event={event}
+            cardName={"DELETE"}
+            onClick={handleDeleteFavEvent}
+          />
+        );
+      })}
+    </>
   );
 };
 

@@ -16,6 +16,10 @@ export const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
     }`,
 
+    [`@media (max-width: 768px)`]: {
+      width: "90%",
+    },
+
     "&::before": {
       content: '""',
       borderRadius: "2.5rem",
@@ -45,9 +49,34 @@ export const useStyles = createStyles((theme) => ({
     },
   },
 
+  innerContainer: {
+    width: "50%",
+    position: "relative",
+    [`@media (max-width: 768px)`]: {
+      width: "90%",
+    },
+  },
+
   btn: {
     position: "absolute",
-    top: "37%",
-    left: "67%",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  trashIcon: {
+    position: "absolute",
+    bottom: "10px",
+    right: "20px",
+    borderRadius: "50%",
+    boxShadow: "1px 1px 2px 1px #ABABAB",
+    backgroundColor: "white",
+    fill: "grey",
+    opacity: "1",
+    width: "1.3rem",
+    height: "1.3rem",
+
+    "&:hover": {
+      fill: "rgb(41,50,64)",
+    },
   },
 }));

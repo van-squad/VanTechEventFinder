@@ -6,6 +6,7 @@ import { Button } from "~/app/components";
 import { type ModifiedResult } from "~/app/api/events/all/route";
 import { useStyles } from "./styles";
 import { useSession } from "next-auth/react";
+import { BiTrash } from "react-icons/bi";
 
 type CardNameType = "ADD" | "DELETE";
 
@@ -23,7 +24,7 @@ const Card: React.FC<CardProps> = ({ event, cardName, onClick }) => {
   return (
     <div className={classes.eventCard}>
       <Flex className={classes.inner}>
-        <Container fz="xs" pl={15} w="53%">
+        <Container fz="xs" pl={15} className={classes.innerContainer}>
           <Text fw="bold" color={theme.colors.red[0]} mt={3}>
             {event.dateTime}
           </Text>
@@ -40,7 +41,7 @@ const Card: React.FC<CardProps> = ({ event, cardName, onClick }) => {
             {event?.description}
           </Text>
         </Container>
-        <Container w="47%">
+        <Container className={classes.innerContainer}>
           <Image
             src={
               event?.imageUrl && event?.imageId
@@ -56,13 +57,11 @@ const Card: React.FC<CardProps> = ({ event, cardName, onClick }) => {
               <Button name="View Details" mt={15} buttonType="secondary" />
             </Link>
           )}
-          {session && (
-            <Button
-              name={cardName}
-              mt={4}
-              buttonType={cardName === "ADD" ? "secondary" : "primary"}
+          {session && cardName == "DELETE" && (
+            <BiTrash
+              className={classes.trashIcon}
               onClick={() => onClick(event)}
-            ></Button>
+            />
           )}
         </Container>
       </Flex>

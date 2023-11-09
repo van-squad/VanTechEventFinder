@@ -6,6 +6,8 @@ import { IconMapPin } from "@tabler/icons-react";
 import { Button } from "~/app/components";
 import { type EventInterface } from "../GoogleMaps";
 import { useSession } from "next-auth/react";
+import { ActionIcon } from "@mantine/core";
+import { IconHeart } from "@tabler/icons-react";
 
 interface EventCardProps {
   event: EventInterface;
@@ -20,16 +22,27 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
   return (
     <div className={classes.card}>
       <Flex direction="column" align="center" p={30}>
-        <Image
-          src={
-            event?.imageUrl && event?.imageId
-              ? `${event.imageUrl}${event.imageId}/676x380.webp`
-              : undefined
-          }
-          alt={event?.title}
-          width="100%"
-          height={120}
-        />
+        <Container style={{ position: "relative" }}>
+          <Image
+            src={
+              event?.imageUrl && event?.imageId
+                ? `${event.imageUrl}${event.imageId}/676x380.webp`
+                : undefined
+            }
+            alt={event?.title}
+            width="100%"
+            height={120}
+          />
+          {session && (
+            <ActionIcon
+              className={classes.favIcon}
+              onClick={() => onClick(event)}
+            >
+              <IconHeart fill="#ee6c4d" stroke="#ee6c4d" />
+            </ActionIcon>
+          )}
+        </Container>
+
         <Container fz="xs" p={0}>
           <Text fw="bold" color={theme.colors.red[0]} mt={15}>
             {event.dateTime}
@@ -47,20 +60,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }) => {
             {event?.description}
           </Text>
         </Container>
-
-        {event?.eventUrl && (
-          <Link target="_blank" href={event.eventUrl}>
-            <Button name="View Details" mt={15} buttonType="secondary"></Button>
-          </Link>
-        )}
-        {session && (
-          <Button
-            name="ADD"
-            mt={4}
-            buttonType="primary"
-            onClick={() => onClick(event)}
-          ></Button>
-        )}
+        <Flex justify="center" align="center" mt={10}>
+          {event?.eventUrl && (
+            <Link target="_blank" href={event.eventUrl}>
+              <Button name="View Details" buttonType="secondary"></Button>
+            </Link>
+          )}
+        </Flex>
       </Flex>
     </div>
   );
