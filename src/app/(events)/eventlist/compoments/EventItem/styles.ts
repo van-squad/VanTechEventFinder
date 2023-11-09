@@ -45,9 +45,42 @@ export const useStyles = createStyles((theme) => ({
     },
   },
 
+  innerContainer: {
+    width: "50%",
+    position: "relative",
+    [`@media (max-width: 768px)`]: {
+      width: "90%",
+    },
+  },
+
+  image: {
+    width: "100%",
+    height: "50%",
+    paddingTop:"0%",
+
+    [`@media (max-width: 768px)`]: {
+      paddingTop: "5%",
+    },
+  },
+
   btn: {
     position: "absolute",
-    top: "37%",
-    left: "67%",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+
+  favIcon: {
+    position: "absolute",
+    bottom: "0px",
+    right: "10px",
+    borderRadius: "50%",
+    boxShadow: "1px 1px 3px 1px #ABABAB",
+    backgroundColor: "white",
+
+    "&:hover": {
+      backgroundColor: "white",
+      boxShadow: "2px 2px 3px 2px #ABABAB",
+    },
   },
 }));

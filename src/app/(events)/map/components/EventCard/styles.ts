@@ -8,6 +8,10 @@ export const useStyles = createStyles((theme) => ({
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.blue[3] : theme.white,
     color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+
+    [`@media (max-width: 768px)`]: {
+      width: "90%",
+    },
   },
 
   inner: {
@@ -16,5 +20,18 @@ export const useStyles = createStyles((theme) => ({
     alignItems: "center",
     flexDirection: "column",
     padding: "2rem 3rem",
+  },
+  favIcon: {
+    position: "absolute",
+    bottom: "-5px",
+    right: "5px",
+    borderRadius: "50%",
+    boxShadow: "1px 1px 3px 1px #ABABAB",
+    backgroundColor: "white",
+
+    "&:hover": {
+      backgroundColor: "white",
+      boxShadow: "2px 2px 3px 2px #ABABAB",
+    },
   },
 }));

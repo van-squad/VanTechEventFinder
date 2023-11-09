@@ -5,19 +5,23 @@ import { useStyles } from "./styles";
 import { IconMapPin } from "@tabler/icons-react";
 import { Button } from "~/app/components";
 import { type ModifiedResult } from "~/app/api/events/all/route";
+import { ActionIcon } from "@mantine/core";
+import { IconHeart } from "@tabler/icons-react";
+import { useSession } from "next-auth/react";
 
 interface EventItemProps {
   event: ModifiedResult;
+  onClick: (event: ModifiedResult) => void;
 }
 
-const EventItem: React.FC<EventItemProps> = ({ event }) => {
+const EventItem: React.FC<EventItemProps> = ({ event, onClick }) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-
+  const { data: session } = useSession();
   return (
     <div className={classes.eventCard}>
       <Flex className={classes.inner}>
-        <Container fz="xs" pl={15} w="53%">
+        <Container className={classes.innerContainer} fz="xs" pl={15}>
           <Text fw="bold" color={theme.colors.red[0]} mt={3}>
             {event.dateTime}
           </Text>
@@ -27,16 +31,16 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => {
           <Text color="#999" lh={1}>
             <Flex align="center">
               <IconMapPin size="1rem" stroke={1.5} />
-              {event.venue.name === "Online event"
+              {event?.venue?.name === "Online event"
                 ? event.venue.name
-                : event.venue.address}
+                : event.venue?.address}
             </Flex>
           </Text>
           <Text mt={10} lineClamp={3}>
             {event?.description}
           </Text>
         </Container>
-        <Container w="47%">
+        <Container className={classes.innerContainer}>
           <Image
             src={
               event?.imageUrl && event?.imageId
@@ -44,12 +48,19 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => {
                 : undefined
             }
             alt={event?.title}
-            width="100%"
-            height={160}
+            className={classes.image}
           />
+          {session && (
+            <ActionIcon
+              onClick={() => onClick(event)}
+              className={classes.favIcon}
+            >
+              <IconHeart fill="#ee6c4d" stroke="#ee6c4d" />
+            </ActionIcon>
+          )}
           {event?.eventUrl && (
             <Link target="_blank" href={event.eventUrl} className={classes.btn}>
-              <Button name="View Details" mt={15} buttonType="secondary" />
+              <Button name="View Details" buttonType="secondary" />
             </Link>
           )}
         </Container>
