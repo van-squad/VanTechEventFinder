@@ -54,6 +54,7 @@ const FILTER_CONSTANT = {
   lat: 49.246292,
   lon: -123.116226,
   source: "EVENTS",
+  city: "vancouver",
 };
 
 export async function POST(req: Request) {
@@ -90,7 +91,7 @@ export async function POST(req: Request) {
       }
     );
 
-    const results: ModifiedResult[] = [];
+    let results: ModifiedResult[] = [];
     if (keywordSearch.count > 0) {
       for (const edge of keywordSearch.edges) {
         results.push({
@@ -103,6 +104,30 @@ export async function POST(req: Request) {
           imageUrl: edge.node.result.image.baseUrl,
           dateTime: convertDate(edge.node.result.dateTime),
         });
+      }
+    }
+
+    if (response.isInPersonOnly) {
+      // Exclude events without venue information even though thier event type is PHYSICAL
+      results = results.filter(
+        (result) => result.venue && result.venue.lat && result.venue.lng
+      );
+
+      // move duplicated locations to make sure to show all of them
+      const memorizedLocation: { [venueId: string]: string } = {};
+      for (const result of results) {
+        const { id: venueId, lng, lat } = result.venue;
+
+        if (memorizedLocation[venueId]) {
+          // Just telling typescript that lng and lat are not undefined
+          if (lng && lat) {
+            // ref: https://stackoverflow.com/questions/20490654/more-than-one-marker-on-same-place-markerclusterer
+            result.venue.lng = +lng + (Math.random() - 0.5) / 1500;
+            result.venue.lat = +lat + (Math.random() - 0.5) / 1500;
+          }
+        } else {
+          memorizedLocation[venueId] = venueId;
+        }
       }
     }
     return NextResponse.json(results, { status: 200 });
