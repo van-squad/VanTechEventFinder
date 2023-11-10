@@ -54,9 +54,6 @@ const EventListPage = () => {
    const { data: session } = useSession();
 
   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
-  function handleIconClick() {
-    setEventAdded(false);
-  }
 
   const handleAddFavEvent: (event: EventInterface) => void = useCallback(
     (event) => {
@@ -109,8 +106,8 @@ const EventListPage = () => {
         <div className={classes.overlay}>
           <Notification
            style={{padding:"3rem"}}
-            className={`${classes.notification}`}
-            onClick={handleIconClick}
+            className={classes.notification}
+            onClick={()=>setEventAdded(false)}
             icon={checkIcon}
             color="teal"
             title=" The event is added to your favorites list!"

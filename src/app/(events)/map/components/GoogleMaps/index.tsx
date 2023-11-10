@@ -83,11 +83,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
   const { data: session } = useSession();
 
   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
-      function handleIconClick() {
-        setEventAdded(false);
-      }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
   const handleAddFavEvent: (event: EventInterface) => void = useCallback(
     (event) => {
       const convertedDate = convertLocaleTimeString(event.dateTime);
@@ -216,8 +213,8 @@ export const GoogleMaps = ({ setMapLoaded }: GoogleMapsProps) => {
         <div className={classes.overlay}>
           <Notification
             style={{ padding: "3rem" }}
-            className={`${classes.notification}`}
-            onClick={handleIconClick}
+            className={classes.notification}
+            onClick={()=>setEventAdded(false)}
             icon={checkIcon}
             color="teal"
             title=" The event is added to your favorites list!"
