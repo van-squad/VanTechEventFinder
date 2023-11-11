@@ -11,9 +11,9 @@ export const useStyles = createStyles((theme) => ({
     borderRadius: "2.5rem",
     marginBottom: "3%",
     transition: "all 0.2s ease-out",
-    boxShadow: "rgba(0, 0, 0, 0.15) 0 5px 5px",
+    cursor: "pointer",
     border: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
+      theme.colorScheme === "dark" ? theme.colors.blue[2] : "#ccc"
     }`,
 
     "&::before": {
@@ -27,14 +27,23 @@ export const useStyles = createStyles((theme) => ({
       transition: "all 0.2s ease-out",
 
       border: `1px solid ${
-        theme.colorScheme === "dark" ? theme.colors.blue[1] : "black"
+        theme.colorScheme === "dark" ? theme.colors.blue[2] : "#ccc"
       }`,
     },
 
-    "&:hover::before": {
-      marginTop: "5px",
-      marginLeft: "10px",
-      background: "rgba(255,255,255,0.5)",
+    "&:hover": {
+      boxShadow: " rgba(0, 0,0, 0.06) 0px 2px 4px 0px inset;",
+      border: `1px solid ${
+        theme.colorScheme === "dark" ? theme.colors.blue[1] : "#aaa"
+      }`,
+
+      "&::before": {
+        marginTop: "5px",
+        marginLeft: "6px",
+        border: `1px solid ${
+          theme.colorScheme === "dark" ? theme.colors.blue[1] : "#aaa"
+        }`,
+      },
     },
   },
 
@@ -45,35 +54,29 @@ export const useStyles = createStyles((theme) => ({
     },
   },
 
-  innerContainer: {
-    width: "50%",
-    position: "relative",
+  contents: {
+    div: {
+      lineHeight: "1.35",
+    },
     [`@media (max-width: 768px)`]: {
       width: "90%",
     },
   },
 
   image: {
-    width: "100%",
-    height: "50%",
-    paddingTop:"0%",
-
+    div: {
+      overflow: "hidden",
+      width: "100%",
+    },
     [`@media (max-width: 768px)`]: {
       paddingTop: "5%",
     },
   },
 
-  btn: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  },
-
   favIcon: {
     position: "absolute",
-    bottom: "0px",
-    right: "10px",
+    bottom: "30px",
+    right: "30px",
     borderRadius: "50%",
     boxShadow: "1px 1px 3px 1px #ABABAB",
     backgroundColor: "white",
