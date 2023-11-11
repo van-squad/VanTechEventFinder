@@ -53,12 +53,13 @@ export const useStyles = createStyles((theme) => ({
     padding: "2rem 3rem",
   },
   overlay: {
+    zIndex: 30,
     position: "fixed",
     top: "0",
     left: "0",
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(0,0,0,0.7)",
   },
   popup: {
     position: "absolute",
@@ -75,5 +76,11 @@ export const useStyles = createStyles((theme) => ({
     position: "absolute",
     top: "60%",
     left: "3%",
-  }
+  },
+  notification: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)"
+  },
 }));

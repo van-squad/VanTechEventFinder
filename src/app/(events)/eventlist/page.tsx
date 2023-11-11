@@ -10,6 +10,9 @@ import { type ModifiedResult } from "~/app/api/events/all/route";
 import { trpc } from "~/providers";
 import { useSession } from "next-auth/react";
 import { convertLocaleTimeString } from "~/utils/date-converter";
+import { IconCheck } from "@tabler/icons-react";
+import { Notification, rem } from "@mantine/core";
+import { useMantineColorScheme } from "@mantine/core";
 
 export interface EventInterface {
   id: string;
@@ -29,6 +32,9 @@ export interface EventInterface {
 }
 
 const EventListPage = () => {
+  const [eventAdded, setEventAdded] = useState(false);
+  const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
+  const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
   const [date, setDate] = useState<Date | null>(new Date(Date.now()));
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
@@ -47,21 +53,20 @@ const EventListPage = () => {
 
    const { data: session } = useSession();
 
-   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
-
-    const handleAddFavEvent: (event: EventInterface) => void = useCallback(
-      (event) => {
-        const convertedDate = convertLocaleTimeString(event.dateTime);
-
-        mutate({
-          id: event.id,
-          userId: session?.user.id as string,
-          date: convertedDate,
-        });
-      },
-      [mutate, session?.user.id]
-    );
+  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
+    (event) => {
+      const convertedDate = convertLocaleTimeString(event.dateTime);
+      setEventAdded(true);
+      mutate({
+        id: event.id,
+        userId: session?.user.id as string,
+        date: convertedDate,
+      });
+    },
+    [mutate, session?.user.id]
+  );
 
   return (
     <div className={classes.container}>
@@ -97,6 +102,21 @@ const EventListPage = () => {
             onClick={() => handleAddFavEvent(event)}
           />
         ))}
+      {eventAdded && (
+        <div className={classes.overlay}>
+          <Notification
+           style={{padding:"3rem"}}
+            className={classes.notification}
+            onClick={()=>setEventAdded(false)}
+            icon={checkIcon}
+            color="teal"
+            title=" The event is added to your favorites list!"
+            closeButtonProps={{
+              color: colorScheme === "dark" ? "gray" : "dark",
+            }}
+          ></Notification>
+        </div>
+      )}
     </div>
   );
 };
