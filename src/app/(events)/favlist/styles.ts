@@ -4,4 +4,12 @@ export const useStyles = createStyles((theme) => ({
   text: {
     textAlign: "center",
   },
+
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    paddingTop: "5%",
+  },
 }));
