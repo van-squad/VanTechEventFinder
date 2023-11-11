@@ -1,9 +1,9 @@
 import { Text } from "@mantine/core";
 import { useEffect, useState, useCallback } from "react";
 import { trpc } from "~/providers";
-import EventCard from "~/app/components/Card";
 import type { ModifiedResult } from "~/app/api/events/all/route";
 import { useStyles } from "./styles";
+import { EventListCard } from "~/app/(events)/components";
 
 interface FavLisrtProps {
   eventIds: Array<string>;
@@ -53,10 +53,10 @@ const FavList: React.FC<FavLisrtProps> = ({ eventIds }) => {
       </Text>
       {eventArr.map((event) => {
         return (
-          <EventCard
+          <EventListCard
             key={event.id}
             event={event}
-            cardName={"DELETE"}
+            cardName="DELETE"
             onClick={handleDeleteFavEvent}
           />
         );

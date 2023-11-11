@@ -11,6 +11,8 @@ export const useStyles = createStyles((theme) => ({
     borderRadius: "2.5rem",
     marginBottom: "3%",
     transition: "all 0.2s ease-out",
+    textDecoration: "none",
+    color: "inherit",
     cursor: "pointer",
     border: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.blue[2] : "#ccc"
@@ -32,14 +34,12 @@ export const useStyles = createStyles((theme) => ({
     },
 
     "&:hover": {
-      boxShadow: " rgba(0, 0,0, 0.06) 0px 2px 4px 0px inset;",
+      boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px;",
       border: `1px solid ${
         theme.colorScheme === "dark" ? theme.colors.blue[1] : "#aaa"
       }`,
 
       "&::before": {
-        marginTop: "5px",
-        marginLeft: "6px",
         border: `1px solid ${
           theme.colorScheme === "dark" ? theme.colors.blue[1] : "#aaa"
         }`,
@@ -73,17 +73,27 @@ export const useStyles = createStyles((theme) => ({
     },
   },
 
-  favIcon: {
+  icon: {
     position: "absolute",
     bottom: "30px",
     right: "30px",
+    padding: "3px",
     borderRadius: "50%",
-    boxShadow: "1px 1px 3px 1px #ABABAB",
+    boxShadow: "1px 1px 2px 1px #ABABAB",
     backgroundColor: "white",
+
+    svg: {
+      width: "1.3rem",
+      height: "1.3rem",
+      opacity: "0.75",
+    },
 
     "&:hover": {
       backgroundColor: "white",
-      boxShadow: "2px 2px 3px 2px #ABABAB",
+      boxShadow: "2px 2px 2px 1px #ABABAB",
+      svg: {
+        opacity: "1",
+      },
     },
   },
 }));

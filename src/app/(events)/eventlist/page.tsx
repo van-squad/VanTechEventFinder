@@ -2,8 +2,7 @@
 import { useState, useCallback } from "react";
 import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
-import Calendar from "../components/Calendar";
-import EventItem from "./compoments/EventItem";
+import { Calendar, EventListCard } from "../components";
 import { Button, BUTTON_VARIANTS } from "~/app/components";
 import useFetchEvent from "~/hooks/useFetchEvent";
 import { type ModifiedResult } from "~/app/api/events/all/route";
@@ -45,23 +44,22 @@ const EventListPage = () => {
   const hasResult = !loading && !error && result && result?.length > 0;
   const noResult = !loading && !error && result?.length === 0;
 
-   const { data: session } = useSession();
+  const { data: session } = useSession();
 
-   const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
+  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
 
+  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
+    (event) => {
+      const convertedDate = convertLocaleTimeString(event.dateTime);
 
-    const handleAddFavEvent: (event: EventInterface) => void = useCallback(
-      (event) => {
-        const convertedDate = convertLocaleTimeString(event.dateTime);
-
-        mutate({
-          id: event.id,
-          userId: session?.user.id as string,
-          date: convertedDate,
-        });
-      },
-      [mutate, session?.user.id]
-    );
+      mutate({
+        id: event.id,
+        userId: session?.user.id as string,
+        date: convertedDate,
+      });
+    },
+    [mutate, session?.user.id]
+  );
 
   return (
     <div className={classes.container}>
@@ -91,9 +89,10 @@ const EventListPage = () => {
 
       {hasResult &&
         result.map((event) => (
-          <EventItem
+          <EventListCard
             key={event.id}
             event={event}
+            cardName="ADD"
             onClick={() => handleAddFavEvent(event)}
           />
         ))}
