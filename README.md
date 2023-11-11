@@ -15,7 +15,6 @@
     <div><a href="#Built-With">Built With</a></div>
     <div><a href="#Getting-Started">Getting Started</a></div>
     <div><a href="#Main-Features">Main Features</a></div>
-    <div><a href="#Commit-Convention">Commit Convention</a></div>
 </details>
 
 ## About The Project
@@ -94,15 +93,14 @@ npm start
 
 <br>
 
-### 2. 
+### 2.
 
 <br>
 
-### 3. 
+### 3.
 
 <br>
 
 ### 4.
 
 <br>
-
