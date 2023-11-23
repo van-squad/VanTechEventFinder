@@ -1,58 +1,36 @@
-// @ts-nocheck
 
-import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "POST") {
-    const url = "https://www.meetup.com/gql";
-
-    const headers = {
+export async function POST() {
+  const res = await fetch("https://www.meetup.com/gql2", {
+    method: "POST",
+    headers: {
       "Content-Type": "application/json",
-    };
-
-    const body = {
-      operationName: "categorySearch",
+    },
+    body: JSON.stringify({
+      operationName: "recommendedEventsWithSeries",
       variables: {
-        first: 100,
+        first: 200,
         lat: 49.279998779296875,
         lon: -123.04000091552734,
-        topicCategoryId: 546,
-        startDateRange: "2023-11-10T10:50:50-05:00[US/Eastern]",
+        topicCategoryId: "546",
+        startDateRange: "2023-11-23T17:20:15-05:00[US/Eastern]",
         sortField: "DATETIME",
-        after: "",
+        doConsolidateEvents: false,
+        after:
+          "Y21WalUyOTFjbU5sT25KaGJtdGxaQzFsZG1WdWRITXRZbmt0ZEdsdFpTeHBibVJsZURveU1BPT0=",
       },
       extensions: {
         persistedQuery: {
           version: 1,
           sha256Hash:
-            "0aceed81313ebba814c0feadeda32f404147996091b6b77209353e2183b2dabb",
+            "0dd88409952899c04bb45c32890ba7383d5ae2ba6c9bdfd4ea2cffee77bbdf12",
         },
       },
-    };
+    }),
+  });
 
-    try {
-      const response = await axios.post(url, body, { headers });
+  // const data = await res.json();
+  // console.log("data", data);
 
-      // Include CORS headers if needed
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.setHeader("Access-Control-Allow-Methods", "POST");
-
-    //   res.status(response.status).json(response.data);
-
-  res.status(200).json({ status:200 , data: response});
-
-    } catch (error) {
-      console.error("Error:", error);
-
-      // Include more details in the error response
-      res
-        .status(500)
-        .json({ error: "Internal Server Error", details: error });
-    }
-  } else {
-    res.status(405).json({ error: "Method Not Allowed" });
-  }
-};
-
-export default handler;
+  // return Response.json(data);
+}

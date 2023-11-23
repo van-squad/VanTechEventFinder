@@ -18,6 +18,8 @@ export default function FetchDataPage() {
         });
 
         if (response.ok) {
+          console.log('response', response)
+          console.log('response', response.json())
           // const result = await response.json();
           // setData(result);
         } else {
