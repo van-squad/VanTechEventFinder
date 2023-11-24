@@ -1,35 +1,14 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Text } from "@mantine/core";
 import { useStyles } from "./styles";
-import Calendar from "../components/Calendar";
-import EventItem from "./compoments/EventItem";
+import { Calendar, EventListCard } from "../components";
 import { Button, BUTTON_VARIANTS } from "~/app/components";
 import useFetchEvent from "~/hooks/useFetchEvent";
 import { type ModifiedResult } from "~/app/api/events/all/route";
-import { trpc } from "~/providers";
-import { useSession } from "next-auth/react";
-import { convertLocaleTimeString } from "~/utils/date-converter";
 import { IconCheck } from "@tabler/icons-react";
 import { Notification, rem } from "@mantine/core";
 import { useMantineColorScheme } from "@mantine/core";
-
-export interface EventInterface {
-  id: string;
-  title: string;
-  eventUrl: string;
-  description: string;
-  venue?: {
-    id?: string;
-    name?: string;
-    address?: string;
-    lat?: number;
-    lng?: number;
-  } | null;
-  imageUrl: string;
-  imageId: string;
-  dateTime: string;
-}
 
 const EventListPage = () => {
   const [eventAdded, setEventAdded] = useState(false);
@@ -50,23 +29,6 @@ const EventListPage = () => {
   });
   const hasResult = !loading && !error && result && result?.length > 0;
   const noResult = !loading && !error && result?.length === 0;
-
-   const { data: session } = useSession();
-
-  const { mutate } = trpc.favoriteEvents.addFavorite.useMutation();
-
-  const handleAddFavEvent: (event: EventInterface) => void = useCallback(
-    (event) => {
-      const convertedDate = convertLocaleTimeString(event.dateTime);
-      setEventAdded(true);
-      mutate({
-        id: event.id,
-        userId: session?.user.id as string,
-        date: convertedDate,
-      });
-    },
-    [mutate, session?.user.id]
-  );
 
   return (
     <div className={classes.container}>
@@ -96,18 +58,20 @@ const EventListPage = () => {
 
       {hasResult &&
         result.map((event) => (
-          <EventItem
+          <EventListCard
             key={event.id}
             event={event}
-            onClick={() => handleAddFavEvent(event)}
+            cardName="ADD"
+            setEventAdded={setEventAdded}
           />
         ))}
+
       {eventAdded && (
         <div className={classes.overlay}>
           <Notification
-           style={{padding:"3rem"}}
+            style={{ padding: "3rem" }}
             className={classes.notification}
-            onClick={()=>setEventAdded(false)}
+            onClick={() => setEventAdded(false)}
             icon={checkIcon}
             color="teal"
             title=" The event is added to your favorites list!"
